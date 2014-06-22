@@ -1,3 +1,2 @@
-#J matrix 
-J <-
-function(n) diag(n) - K(n)
+# J matrix
+J <- function(n) diag(n) - K(n) 

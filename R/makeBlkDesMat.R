@@ -1,10 +1,10 @@
-makeBlkDesMat <- 
-function(design.df, blkTerm) {
+makeBlkDesMat <- function(design.df, blkTerm) {
     isFactorNameNumeric <- function(levels) !as.logical(length(grep("[A-Z]|[a-z]", levels)))
     
     makeDesignMatrix <- function(nRows, design.df, col) {
         if (grepl(":", col)) {
-            factor <- as.factor(apply(design.df[, unlist(strsplit(col, ":"))], 1, function(x) paste(x, collapse = ".")))
+            factor <- as.factor(apply(design.df[, unlist(strsplit(col, ":"))], 1, function(x) paste(x, 
+                collapse = ".")))
         } else {
             factor <- as.factor(design.df[, col])
         }
@@ -30,7 +30,8 @@ function(design.df, blkTerm) {
     Z[[1]] <- diag(nrow(design.df))
     
     for (i in 2:(n + 1)) {
-        Z[[i]] <- makeDesignMatrix(nRows = nRows, design.df = design.df, col = blkTerm[i - 1])
+        Z[[i]] <- makeDesignMatrix(nRows = nRows, design.df = design.df, col = blkTerm[i - 
+            1])
     }
     
     names(Z) <- c("e", blkTerm)

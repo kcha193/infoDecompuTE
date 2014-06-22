@@ -1,2 +1,1 @@
-identityMat <-
-function(n) diag(n)
+identityMat <- function(n) diag(n) 
