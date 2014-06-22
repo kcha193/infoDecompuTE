@@ -1,3 +1,2 @@
-#Unity matrix
-unity <-
-function(n) matrix(rep(1,n), nrow = n, ncol = 1)
+# Unity matrix
+unity <- function(n) matrix(rep(1, n), nrow = n, ncol = 1) 
