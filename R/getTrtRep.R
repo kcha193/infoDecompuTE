@@ -1,24 +1,24 @@
 getTrtRep <- 
 function(design.df, trtTerm) {
     
-    if (length(trtTerm) == 1 && !any(grepl(":", trtTerm))) {
+    if (length(trtTerm) == 1 && !any(grepl("[[:punct:]]", trtTerm))) {
         
         return(as.matrix(table(design.df[, trtTerm])))
-    } else if (any(grepl(":", trtTerm))) {
+    } else if (any(grepl("[[:punct:]]", trtTerm))) {
               
-        level = t(sapply(strsplit(sort(levels(interaction(design.df[, unique(unlist(strsplit(trtTerm, "\\:")))]))), "\\."), rbind))
+        level = t(sapply(strsplit(sort(levels(interaction(design.df[, unique(unlist(strsplit(trtTerm, "[[:punct:]]")))]))), "\\."), rbind))
         
-        colnames(level) = unique(unlist(strsplit(trtTerm, "\\:")))
+        colnames(level) = unique(unlist(strsplit(trtTerm, "[[:punct:]]")))
         
-        inter = trtTerm[grepl(":", trtTerm)]
+        inter = trtTerm[grepl("[[:punct:]]", trtTerm)]
         
         for (i in 1:length(inter)) {
-            level = cbind(level, apply(level[, unique(unlist(strsplit(inter[i], "\\:")))], 
+            level = cbind(level, apply(level[, unique(unlist(strsplit(inter[i], "[[:punct:]]")))], 
                                           1, function(x) paste(x, collapse = ".")))
             colnames(level)[ncol(level)] = inter[i]
         }
         
-        trtTermList = lapply(strsplit(trtTerm, "\\:"), function(x) design.df[, x])
+        trtTermList = lapply(strsplit(trtTerm, "[[:punct:]]"), function(x) design.df[, x])
         names(trtTermList) = trtTerm
         
         repList = lapply(trtTermList, function(y) if (is.factor(y)) {

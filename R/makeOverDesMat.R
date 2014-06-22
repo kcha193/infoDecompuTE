@@ -1,10 +1,10 @@
 makeOverDesMat <- function(design.df, effectNames) {
     
-    if (length(effectNames) == 1 && ! any(grepl(":", effectNames))) {
+    if (length(effectNames) == 1 && ! any(grepl("[[:punct:]]", effectNames))) {
         incident = design.df[, effectNames]
         nLevels = levels(design.df[, effectNames])
-    } else if (any(grepl(":", effectNames))) {
-        uniqueTrtCols = unique(unlist(strsplit(effectNames, "\\:")))
+    } else if (any(grepl("[[:punct:]]", effectNames))) {
+        uniqueTrtCols = unique(unlist(strsplit(effectNames, "[[:punct:]]")))
         
         incident = as.factor(apply(design.df[, uniqueTrtCols], 1, function(x) paste(x, collapse = ".")))
         # nLevels = sort(unique(incident))

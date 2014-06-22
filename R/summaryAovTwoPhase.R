@@ -1,5 +1,5 @@
 summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, blk.contr = NA, trt.contr = NA, 
-    contr.matrix = all(is.na(trt.contr)), table.legend = FALSE, response = NA, latex = FALSE, fixed.names = NA) {
+    table.legend = FALSE, response = NA, latex = FALSE, fixed.names = NA) {
     
     design.df = data.frame(lapply(design.df, factor))
     
@@ -206,13 +206,10 @@ checkBrack = function(x, str.for) {
     
 
     # write('3. Defining the block structures of first phase within second Phase.', '')
-    trtTerm = attr(rT1, "term.labels")
+    blkTerm1 = attr(rT1, "term.labels")
     effectsMatrix = attr(rT1, "factor")
-                  
-    T = makeContrMat(design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, contr.vec = blk.contr, contr.matrix = all(is.na(blk.contr)))
-    N = makeOverDesMat(design.df, trtTerm)
-    
-    checkCross = attr(rT1, "factor")
+             
+  checkCross = attr(rT1, "factor")
     if (any(grepl(":", blkTerm1))) {
         check.blkTerm1 = blkTerm1[grep(":", blkTerm1)]
         
@@ -249,9 +246,14 @@ checkBrack = function(x, str.for) {
         }
   
         blkTerm1[grep(":", blkTerm1)] =check.blkTerm1
-        names(T) = blkTerm1
+        colnames(effectsMatrix) = blkTerm1
     }
+ 
+		 
+    T = makeContrMat(design.df, effectNames = blkTerm1, effectsMatrix = effectsMatrix, contr.vec = blk.contr)
+    N = makeOverDesMat(design.df, blkTerm1)
     
+     
     #browser()
      
     res = paste("Within", paste(unique(unlist(strsplit(names(T), "[[:punct:]]+"))), collapse = "."))
@@ -289,32 +291,17 @@ checkBrack = function(x, str.for) {
     trtTerm = attr(fT, "term.labels")
     effectsMatrix = attr(fT, "factor")
     
-    #browser()
-    
-    T = makeContrMat(design.df, trtTerm, effectsMatrix, trt.contr, contr.matrix)
-    N = makeOverDesMat(design.df, trtTerm)
-    Rep = getTrtRep(design.df, trtTerm)
-    trt.Coef = getTrtCoef(design.df, trtTerm)
-    
-    # browser()
-    if (any(grepl("\\.", names(T)))) {
-        colnames(Rep) = trtTerm
-        names(trt.Coef) = trtTerm
-        
-        Rep = Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
-        trt.Coef = trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
-    }
-    
-    if (any(grepl(":", trtTerm))) {
+   
+	 if (any(grepl(":", trtTerm))) {
         check.trtTerm = trtTerm[grep(":", trtTerm)]
         
-        effectsMatrix = effectsMatrix[, check.trtTerm]
+        effectsMatrix1 = effectsMatrix[, check.trtTerm]
         
-        if (!is.matrix(effectsMatrix)) {
-            temp = matrix(effectsMatrix)
-            rownames(temp) = names(effectsMatrix)
+        if (!is.matrix(effectsMatrix1)) {
+            temp = matrix(effectsMatrix1)
+            rownames(temp) = names(effectsMatrix1)
             colnames(temp) = check.trtTerm
-            effectsMatrix = temp
+            effectsMatrix1 = temp
         }
         
         split.check.trtTerm = strsplit(check.trtTerm, ":")
@@ -322,7 +309,7 @@ checkBrack = function(x, str.for) {
         for (i in 1:length(split.check.trtTerm)) {
             newName = ""
             for (j in 1:(length(split.check.trtTerm[[i]]) - 1)) {
-                if (effectsMatrix[split.check.trtTerm[[i]][j], i] == 1) {
+                if (effectsMatrix1[split.check.trtTerm[[i]][j], i] == 1) {
                   newName = paste(newName, split.check.trtTerm[[i]][j], "*", sep = "")
                 } else {
                   newName = paste(newName, split.check.trtTerm[[i]][j], ":", sep = "")
@@ -332,19 +319,30 @@ checkBrack = function(x, str.for) {
             check.trtTerm[i] = newName
         }
         
-           len = intersect(grep("\\:", check.trtTerm), grep("\\*", check.trtTerm))
-         if(length(len)> 0){
-         for(i in 1:length(len))
-            check.trtTerm[len[i]] = 
-                  checkBrack(check.trtTerm[len[i]], trt.str)
-                  
+        len = intersect(grep("\\:", check.trtTerm), grep("\\*", check.trtTerm))
+        if (length(len) > 0) {
+            for (i in 1:length(len)) check.trtTerm[len[i]] = checkBrack(check.trtTerm[len[i]], trt.str)
+            
         }
-
+        
         trtTerm[grep(":", trtTerm)] = check.trtTerm
-        names(T) = trtTerm
+        colnames(effectsMatrix) = trtTerm
         
     }
     
+    T = makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
+		contr.vec = trt.contr)
+    N = makeOverDesMat(design.df = design.df,  effectNames = trtTerm)
+    Rep = getTrtRep(design.df, trtTerm)
+    trt.Coef = getTrtCoef(design.df, trtTerm)
+    
+    if (any(grepl("\\.", names(T)))) {
+        colnames(Rep) = trtTerm
+        names(trt.Coef) = trtTerm
+        
+        Rep = Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
+        trt.Coef = trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
+    }
     
     colnames(Rep) = names(T)
     names(trt.Coef) = names(T)

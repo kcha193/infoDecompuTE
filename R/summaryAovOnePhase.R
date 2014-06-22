@@ -1,6 +1,6 @@
 summaryAovOnePhase <- 
-function(design.df, blk.str, trt.str, var.comp = NA, trt.contr = NA, contr.matrix = all(is.na(trt.contr)), 
-    table.legend = FALSE, response = NA, latex = FALSE, fixed.names = NA, decimal = FALSE, digits = 2) {
+function(design.df, blk.str, trt.str, var.comp = NA, trt.contr = NA, table.legend = FALSE, 
+	response = NA, latex = FALSE, fixed.names = NA, decimal = FALSE, digits = 2) {
     
     design.df = data.frame(lapply(design.df, factor))
     ######################################################################################### Main methods starts here-> Extract the fixed and random terms
@@ -141,30 +141,17 @@ function(design.df, blk.str, trt.str, var.comp = NA, trt.contr = NA, contr.matri
     trtTerm = attr(fT, "term.labels")
     effectsMatrix = attr(fT, "factor")
     # browser()
-    T = makeContrMat(design.df, trtTerm, effectsMatrix, trt.contr, contr.matrix)
-    N = makeOverDesMat(design.df, trtTerm)
-    Rep = getTrtRep(design.df, trtTerm)
-    trt.Coef = getTrtCoef(design.df, trtTerm)
-    
-    if (any(grepl("\\.", names(T)))) {
-        colnames(Rep) = trtTerm
-        names(trt.Coef) = trtTerm
-        
-        Rep = Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
-        trt.Coef = trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
-    }
-    # browser()
-    
-    if (any(grepl(":", trtTerm))) {
+
+	 if (any(grepl(":", trtTerm))) {
         check.trtTerm = trtTerm[grep(":", trtTerm)]
         
-        effectsMatrix = effectsMatrix[, check.trtTerm]
+        effectsMatrix1 = effectsMatrix[, check.trtTerm]
         
-        if (!is.matrix(effectsMatrix)) {
-            temp = matrix(effectsMatrix)
-            rownames(temp) = names(effectsMatrix)
+        if (!is.matrix(effectsMatrix1)) {
+            temp = matrix(effectsMatrix1)
+            rownames(temp) = names(effectsMatrix1)
             colnames(temp) = check.trtTerm
-            effectsMatrix = temp
+            effectsMatrix1 = temp
         }
         
         split.check.trtTerm = strsplit(check.trtTerm, ":")
@@ -172,7 +159,7 @@ function(design.df, blk.str, trt.str, var.comp = NA, trt.contr = NA, contr.matri
         for (i in 1:length(split.check.trtTerm)) {
             newName = ""
             for (j in 1:(length(split.check.trtTerm[[i]]) - 1)) {
-                if (effectsMatrix[split.check.trtTerm[[i]][j], i] == 1) {
+                if (effectsMatrix1[split.check.trtTerm[[i]][j], i] == 1) {
                   newName = paste(newName, split.check.trtTerm[[i]][j], "*", sep = "")
                 } else {
                   newName = paste(newName, split.check.trtTerm[[i]][j], ":", sep = "")
@@ -189,10 +176,26 @@ function(design.df, blk.str, trt.str, var.comp = NA, trt.contr = NA, contr.matri
         }
         
         trtTerm[grep(":", trtTerm)] = check.trtTerm
-        names(T) = trtTerm
+        colnames(effectsMatrix) = trtTerm
         
     }
     
+    T = makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
+		contr.vec = trt.contr)
+    N = makeOverDesMat(design.df = design.df,  effectNames = trtTerm)
+    Rep = getTrtRep(design.df, trtTerm)
+    trt.Coef = getTrtCoef(design.df, trtTerm)
+    
+    if (any(grepl("\\.", names(T)))) {
+        colnames(Rep) = trtTerm
+        names(trt.Coef) = trtTerm
+        
+        Rep = Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
+        trt.Coef = trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
+    }
+    # browser()
+    
+  
     colnames(Rep) = names(T)
     names(trt.Coef) = names(T)
     ######################################################################################### Start calculating the VCs 1-phase experiment
