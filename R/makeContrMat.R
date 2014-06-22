@@ -132,7 +132,8 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
         }
         
         colnames(newEffectsMatrix) <- names(X)
-        
+        #browser()
+		
         for (i in 1:nrow(newEffectsMatrix)) {
             if (is.list(contr.vec[[rownames(effectsMatrix)[i]]])) {
                 trtContr <- lapply(contr.vec[[rownames(effectsMatrix)[i]]], function(x) transContrToT(design.df[, 
@@ -141,7 +142,7 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
                 matList <- vector(mode = "list", length = totalLength)
                 
                 for (j in 1:ncol(newEffectsMatrix)) {
-                  
+                 
                   if (newEffectsMatrix[i, j] == 1) {
                     trtNames <- match(unlist(strsplit(colnames(newEffectsMatrix)[j], 
                       "\\.")), names(trtContr))
@@ -176,6 +177,8 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
         
     }
     
+	
+	 
     names(X) <- gsub("\\.0", "", names(X))
     return(X)
 } 

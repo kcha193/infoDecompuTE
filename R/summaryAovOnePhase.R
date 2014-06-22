@@ -201,7 +201,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
         Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
         trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
     }
-    # browser()
+   
     
     
     colnames(Rep) <- names(T)
