@@ -8,9 +8,9 @@ Computes the coefficients of the variance components for the expected mean squar
 }
 \usage{
 summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA,  
-                   trt.contr = NA, contr.matrix = all(is.na(trt.contr)), 
-                   table.legend = FALSE, response = NA, latex = FALSE, 
-                   fixed.names = NA)
+                   trt.contr = NA, table.legend = FALSE, 
+                   response = NA, latex = FALSE, fixed.names = NA,
+                   decimal = FALSE, digits = 2)
 }
 \arguments{
   \item{design.df}{
@@ -29,9 +29,6 @@ a vector of characters containing the variance components of interest this allow
 \item{trt.contr}{
 a list of treatment contrast vectors, this allows the user to specify the contrasts for each treatment factor. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment factor with the same order as \code{fixed.terms}. Default is \code{NA}, which uses the C matrix described by John and Williams (1987).
 }
-\item{contr.matrix}{
-a logical allows the users to use the contrast matrices or contrast vectors. If \code{contr.matrix = FALSE}, the outputs will use the contrast vectors each contributes one DF.  If the \code{contr.matrix} arguement is \code{TRUE} the output will conbine the contrast vector for each treatment factors. The default depends on whether \code{trt.contr} has defined, if \code{trt.contr} has defined, then \code{contr.matrix} becomes \code{FALSE}.  
-}
 \item{table.legend}{
 a logical allows the users to use the legend for the variance components of the ANOVA table for a large design. Default is \code{FALSE}, which uses the original names.  
 }
@@ -43,6 +40,12 @@ a logical allows the users to output the Latex script to Latex table. Once the L
 }
 \item{fixed.names}{
 a vector of character allows the users to modify symbols for the fixed effects for the Latex outputs.
+}
+\item{decimal}{
+a logical allows users to display the coefficients as the decimals. Default is \code{FALSE}, resulting in the use of \code{fractions}.    
+}
+ \item{digits}{
+a integer indicating the number of decimal places. Default is 2, resulting in 2 decimal places.  
 }
 }
 \value{

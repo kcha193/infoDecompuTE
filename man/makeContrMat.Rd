@@ -6,7 +6,7 @@ Make Contrast Matrix}
 Construct a list of contrast matrices for block for treatment effects.
 }
 \usage{
-makeContrMat(design.df, effectNames, effectsMatrix, contr.vec, contr.matrix)
+makeContrMat(design.df, effectNames, effectsMatrix, contr.vec)
 }
 \arguments{
   \item{design.df}{
@@ -20,9 +20,6 @@ a matrix of variables by terms showing which variables appear in which terms gen
 }
   \item{contr.vec}{
 a list of contrast vectors, this allows the user to specify the contrasts for each treatment or block factor. Note that if this arguement is used, it is necessary to specify the contrasts for every treatment or block factor with the same order as \code{effectNames}. Default is \code{NA}, and the function output the C matrices described by John and Williams (1987).
-}
-\item{contr.matrix}{
-a logical allows the users to use the contrast matrices instead of contrast vectors. If \code{contr.matrix = FALSE}, the outputs will use the contrast vectors where each vector contributes to one DF. If the \code{contr.matrix} arguement is \code{TRUE} the output will combine the contrast vectors in \code{contr.vec} for each treatment factors. The default depends on whether \code{trt.contr} has defined, if \code{trt.contr} has defined, then \code{contr.matrix} becomes \code{FALSE}.  
 }
 }
 \details{
@@ -58,8 +55,7 @@ fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixe
 trtTerm <- attr(fT, "term.labels")
 effectsMatrix <- attr(fT, "factor")        
 
-T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA , 
-        contr.matrix = TRUE)
+T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA)
 		
 #Fit each treatment contrasts as a vector seperately
 Trt1 <- rep(c(1,-1), each = 4)
@@ -67,7 +63,6 @@ Trt2 <-  rep(c(1,-1), time = 4)
 Trt3 <- Trt1*Trt2
   
 T <- makeContrMat(design1, trtTerm, effectsMatrix, 
-      contr.vec =list(Trt = list(Trt1 = Trt1, Trt2 = Trt2, Trt3 = Trt3)), 
-      contr.matrix = FALSE)
+      contr.vec =list(Trt = list(Trt1 = Trt1, Trt2 = Trt2, Trt3 = Trt3)))
 
 }

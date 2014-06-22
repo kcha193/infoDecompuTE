@@ -1,5 +1,5 @@
 getCoefVC.twoPhase =
-function(Pb, design.df, v.mat, response, table.legend){
+function(Pb, design.df, v.mat, response, table.legend, decimal, digits) {
 
    if(all(is.na(response))){
     response = rep(NA, nrow(design.df))
@@ -84,9 +84,17 @@ function(Pb, design.df, v.mat, response, table.legend){
   					rownames(tmp) = paste("     ", rownames(tmp), sep = " ")
 					}
 					
-          tmp = t(apply(tmp, 1, function(x) c(attr(fractions(c(x[1], x[-length(x)]/x[1])),"fracs"),
-                    as.character(round(x[length(x)]/x[1], digits = 10)))))
+					
 
+					if(decimal){
+					tmp = t(apply(tmp, 1, function(x) c(round(c(x[1], x[-length(x)]/x[1]), digits = digits),
+						as.character(round(x[length(x)]/x[1], digits = 3)))))				
+					} else {
+					tmp = t(apply(tmp, 1, function(x) c(attr(fractions(c(x[1], x[-length(x)]/x[1])),"fracs"),
+						as.character(round(x[length(x)]/x[1], digits = 3)))))
+					}
+
+			
 					VC = rbind(VC, tmp)
 				}
 			}

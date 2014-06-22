@@ -1,5 +1,5 @@
  getFixedEF.twoPhase  =
- function(effFactors, trt.Coef, T,  Rep, table.legend){
+ function(effFactors, trt.Coef, T,  Rep, table.legend, decimal, digits){
  
       trt  = numeric(length(trt.Coef) + ncol(Rep))
 		names(trt) = c( names(T), paste("eff",  names(T), sep = ".") )
@@ -38,8 +38,16 @@
 
 				for(j in 1:length(effFactors[[i]][[k]])){
 					if(is.null(effFactors[[i]][[k]][[j]])) next
-					trt.temp = attr(fractions(c(trt.Coef*unlist(effFactors[[i]][[k]][[j]]),unlist(effFactors[[i]][[k]][[j]]))),"fracs")
+					
+					if(decimal){
+							
+						trt.temp =  round(c(trt.Coef*unlist(effFactors[[i]][[k]][[j]]),unlist(effFactors[[i]][[k]][[j]])), digits = digits)
+					} else {				
+						trt.temp = attr(fractions(c(trt.Coef*unlist(effFactors[[i]][[k]][[j]]),unlist(effFactors[[i]][[k]][[j]]))),"fracs")
+					}
+					
 					trt = rbind(trt,trt.temp)
+					
 					if(noindent){
 					 rownames(trt)[nrow(trt)] =  paste("  ", names(effFactors[[i]][[k]][j]), sep = " ")
           }else{

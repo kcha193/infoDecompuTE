@@ -1,5 +1,6 @@
 summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, blk.contr = NA, trt.contr = NA, 
-    table.legend = FALSE, response = NA, latex = FALSE, fixed.names = NA) {
+    table.legend = FALSE, response = NA, latex = FALSE, fixed.names = NA, 
+    decimal = FALSE, digits = 2){
     
     design.df = data.frame(lapply(design.df, factor))
     
@@ -370,14 +371,14 @@ checkBrack = function(x, str.for) {
     }
     
     
-    ANOVA = getCoefVC.twoPhase(Pb = PNTginvATNP, design.df = design.df, v.mat = v.mat, response, table.legend)
+    ANOVA = getCoefVC.twoPhase(Pb = PNTginvATNP, design.df = design.df, v.mat = v.mat, response, table.legend, decimal= decimal, digits = digits)
     
     
     effFactors = lapply(Pb1, function(y) lapply(y, function(z) getEffFactor(z, T, N, Rep)))
     effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]
     
     
-    EF = getFixedEF.twoPhase(effFactors = effFactors,  trt.Coef = trt.Coef, T = T, Rep = Rep, table.legend)
+    EF = getFixedEF.twoPhase(effFactors = effFactors,  trt.Coef = trt.Coef, T = T, Rep = Rep, table.legend, decimal= decimal, digits = digits)
     
     if (latex) {
         return(toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = fixed.names))

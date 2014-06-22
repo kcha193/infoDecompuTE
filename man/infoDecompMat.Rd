@@ -56,8 +56,7 @@ fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixe
 trtTerm <- attr(fT, "term.labels")
 effectsMatrix <- attr(fT, "factor")        
 
-T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA , 
-        contr.matrix = TRUE)
+T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA)
 
 N =  makeOverDesMat(design1, trtTerm)
 

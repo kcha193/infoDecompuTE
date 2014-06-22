@@ -8,8 +8,8 @@ Get Variance Components' Coefficients and Mean Squares for Single-Phase or Two-P
 Compute the variance components' coefficients and corresponding to random effects in the expected mean squares of ANOVA table in single-phase or two-phase experiments. These cofficients are then inserted to a matrix where the rows correspond to each source of variation and column correspond to DF and every variance componenet. The mean squares is calculated if the \code{response} arguement is used.
 }
 \usage{
-getCoefVC.onePhase(Pb, design.df, v.mat, response, table.legend)
-getCoefVC.twoPhase(Pb, design.df, v.mat, response, table.legend)
+getCoefVC.onePhase(Pb, design.df, v.mat, response, table.legend, decimal, digits)
+getCoefVC.twoPhase(Pb, design.df, v.mat, response, table.legend, decimal, digits)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +27,12 @@ a numeric vector contains the responses from the experiment.
 }
  \item{table.legend}{
 a logical allows users to generate a legend for the variance components of the ANOVA table for large designs. Default is \code{FALSE}, resulting in the use of original block factor names.   
+}
+\item{decimal}{
+a logical allows users to display the coefficients as the decimals. Default is \code{FALSE}, resulting in the use of \code{fractions}.    
+}
+ \item{digits}{
+a integer indicating the number of decimal places. Default is 2, resulting in 2 decimal places.  
 }
 }
 \details{
@@ -62,8 +68,7 @@ fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixe
 trtTerm <- attr(fT, "term.labels")
 effectsMatrix <- attr(fT, "factor")        
 
-T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA , 
-        contr.matrix = TRUE)
+T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA)
 
 N =  makeOverDesMat(design1, trtTerm)
 
@@ -74,6 +79,6 @@ Pb <- PNTginvATNP[sort(1:length(PNTginvATNP), decreasing=TRUE)]
 
 v.mat <- getVMat.onePhase(Z.Phase1 = Z, design.df = design.df, var.comp = NA)
     
-getCoefVC.onePhase(Pb = Pb, design.df = design1, v.mat = v.mat, response = NA, table.legend = FALSE)
+getCoefVC.onePhase(Pb = Pb, design.df = design1, v.mat = v.mat, response = NA, table.legend = FALSE, decimal = FALSE, digit = 2)
 
 }
