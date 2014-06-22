@@ -58,7 +58,7 @@ getCoefVC.onePhase <- function(Pb, design.df, v.mat, response, table.legend, dec
                 tmp <- t(apply(tmp, 1, function(x) c(round(c(x[1], x[-length(x)]/x[1]), 
                   digits = digits), as.character(round(x[length(x)]/x[1], digits = 3)))))
             } else {
-                tmp <- t(apply(tmp, 1, function(x) c(attr(fractions(c(x[1], x[-length(x)]/x[1])), 
+                tmp <- t(apply(tmp, 1, function(x) c(attr(fractions(c(round(x[1]), x[-length(x)]/x[1])), 
                   "fracs"), as.character(round(x[length(x)]/x[1], digits = 3)))))
             }
             
