@@ -353,6 +353,8 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     colnames(Rep) <- names(T)
     names(trt.Coef) <- names(T)
     
+	#browser()
+	
     # Start calculating the VCs 2-phase experiment write('5. Start calculating the
     # variance components.', '') write('6. Pre- and post-multiply NTginvATN by block
     # projection matrices.', '')

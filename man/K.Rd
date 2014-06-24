@@ -2,7 +2,7 @@
 \alias{K}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Averging Matrix 
+Averaging Matrix 
 }
 \description{
 Construct a n-by-n averaging matrix.}

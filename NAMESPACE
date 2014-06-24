@@ -1,2 +1,29 @@
+useDynLib(infoDecompuTE)
 import(MASS)
-exportPattern("^[[:alpha:]]+")
+import(RcppArmadillo)
+importFrom(Rcpp, evalCpp)
+
+export(  getCoefVC.onePhase,
+		getCoefVC.twoPhase,	
+		getEffFactor,	
+		getFixedEF.onePhase,	
+		getFixedEF.twoPhase,	
+		getTrtCoef,	
+		getTrtRep,	
+		getVMat.onePhase,	
+		getVMat.twoPhase,	
+		identityMat,
+		infoDecompMat,	
+		invInfMat,	
+		J,	
+		K,	
+		makeBlkDesMat,
+		makeContrMat,	
+		makeOrthProjectors,	
+		makeOverDesMat,
+		projMat,	
+		summaryAovOnePhase,	
+		summaryAovTwoPhase,
+		toLatexTable,	
+		tr,
+		unity)

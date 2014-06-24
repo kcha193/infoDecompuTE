@@ -1,7 +1,7 @@
 \name{summaryAovOnePhase}
 \alias{summaryAovOnePhase}
 \title{
-Summarize an Theotrical Analysis of Variance Model of Single-Phase Experiments
+Summarize an Theoretical Analysis of Variance Model of Single-Phase Experiments
 }
 \description{
 Computes the coefficients of the variance components for the expected mean squares for single-phase experiments. The function accepts a data frame of the experimetnal design with the structural formulae of the block and treatment factors. Two tables containing the variance components of the random effects and fixed effects are returned.  
