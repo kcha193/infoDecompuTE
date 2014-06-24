@@ -20,7 +20,7 @@ getEffFactor <- function(z, T, N, Rep) {
         for (i in 1:nEffect) {
             r.adjust <- ginv(sqrt(diag(Rep[, i])))
             # eigenvalues of the information matrix
-            va <- Re(eigenPNTginvATNP(r.adjust, N,  T[[1]],  PNTginvATNP[[1]]))
+            va <- Re(eigenPNTginvATNP(r.adjust, N,  T[[i]],  PNTginvATNP[[1]]))
             #va <- Re(eigen(r.adjust %*% T[[i]] %*% t(N) %*% PNTginvATNP[[1]] %*% N %*% 
             #    T[[i]] %*% r.adjust)$va)
             
