@@ -44,6 +44,7 @@ getEffFactor <- function(z, T, N, Rep) {
             
             # PNTginvATNP[[i]] = newZ %*% N %*% t(T[[i]]) %*% ginv(t(T[[i]]) %*% t(N) %*% z %*%
             # N %*% T[[i]]) %*% T[[i]] %*% t(N) %*% t(newZ)
+			
             if (all(PNTginvATNP[[i]] < 1e-06)) 
                 next
             

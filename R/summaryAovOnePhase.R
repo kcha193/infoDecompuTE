@@ -207,10 +207,11 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     colnames(Rep) <- names(T)
     names(trt.Coef) <- names(T)
     ######################################################################################### Start calculating the VCs 1-phase experiment
-    
+    #browser()
     # pre- and post-multiply NTginvATN by block projection matrices
     PNTginvATNP <- lapply(Pb, function(z) infoDecompMat(z, T, N))
     
+	
     # Now construct variance matrices
     PNTginvATNP <- PNTginvATNP[sort(1:length(PNTginvATNP), decreasing = TRUE)]
     

@@ -5,7 +5,8 @@ getCoefVC.onePhase <- function(Pb, design.df, v.mat, response, table.legend, dec
         response <- rep(NA, nrow(design.df))
     }
     MS <- lapply(Pb, function(q) lapply(q, function(w) t(response) %*% w %*% response))
-    
+    #MS <- lapply(Pb, function(q) apply(q, 3, function(w) t(response) %*% w %*% response))
+ 
     
     V <- v.mat
     
