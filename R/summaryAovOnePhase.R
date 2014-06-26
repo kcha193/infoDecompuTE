@@ -146,7 +146,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     
     trtTerm <- attr(fT, "term.labels")
     effectsMatrix <- attr(fT, "factor")
-    # browser()
+     #browser()
     
     if (any(grepl(":", trtTerm))) {
         check.trtTerm <- trtTerm[grep(":", trtTerm)]
