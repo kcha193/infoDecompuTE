@@ -75,7 +75,7 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
     random.ColNames <- colnames(ANOVA)
     fixed.ColNames <- colnames(EF)
     
-    # browser()
+    #browser()
     
     if (is.na(fixed.names[1])) 
         fixed.names <- c("\\tau", "\\gamma", "\\rho", "\\phi", "\\delta", "\\omega")
@@ -85,13 +85,13 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
     match.fixed.names <- unique(unlist(strsplit(fixed.ColNames[1:(length(fixed.ColNames)/2)], 
         "[[:punct:]]")))
     fixed.names <- fixed.names[1:length(match.fixed.names)]
-    match.fixed.names <- c(match.fixed.names, ":", "*")
-    fixed.names <- c(fixed.names, ":", "*")
+    match.fixed.names <- c(match.fixed.names, "*", "(", ")")
+    fixed.names <- c(fixed.names, "*", "(", ")")
     
-    fixed.ColNames <- sapply(strsplit(gsub("([[:punct:]])", "\\.\\1\\.", fixed.ColNames[1:(length(fixed.ColNames)/2)]), 
+    fixed.names <- sapply(strsplit(gsub("([[:punct:]])", "\\.\\1\\.", fixed.ColNames[1:(length(fixed.ColNames)/2)]), 
         "\\."), function(x) paste(fixed.names[match(x, match.fixed.names)], collapse = ""))
     
-    fixed.names <- gsub("\\*", "", fixed.ColNames)
+    #fixed.names <- gsub("\\*", "", fixed.ColNames)
     
     # browser()
     
@@ -114,7 +114,7 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
         "\\."), function(x) paste(substr(x, 1, 1), collapse = ""))
     
     
-    random.names <- gsub("\\:", "", random.names)
+    #random.names <- gsub("\\:", "", random.names)
     
     if (ColNamesLen > 2 && startColNames == 3) {
         random.names <- c("\\sigma^2", paste("\\sigma_{", random.names, "}^2", sep = ""))

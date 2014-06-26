@@ -116,7 +116,7 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
     # Without the contrasts specifically defined
     if (all(is.na(contr.vec))) {
         X <- as.list(rep(1, nEffects))
-        names(X) <- colnames(effectsMatrix)
+        names(X) <- effectNames
         
         for (i in 1:nrow(effectsMatrix)) {
             matList <- lapply(effectsMatrix[i, ], function(y) indMatrix(y, nLevels[i]))

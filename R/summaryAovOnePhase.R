@@ -92,128 +92,17 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
     
     ######################################################################################### Preparing the block structures
-    
+    #browser()
     Z <- makeBlkDesMat(design.df, rev(rT.terms))
     
     Pb <- makeOrthProjectors(Z)
     
-    checkBrack <- function(x, str.for) {
-        # browser()
-        str.for <- gsub("/", ":", str.for)
-        # storeBrack = unlist(strsplit(gsub('([[:punct:]])', '\\.\\1\\.', str.for),
-        # '\\.'))
-        storeBrack <- unlist(strsplit(unlist(strsplit(str.for, "\\(")), "\\)"))
-        
-        if (any(storeBrack == "")) 
-            storeBrack <- storeBrack[-which(storeBrack == "")]
-        
-        if (any(x == storeBrack)) 
-            return(x)
-        
-        nameX <- unlist(strsplit(x, "([[:punct:]])"))
-        
-        x <- unlist(strsplit(gsub("([[:punct:]])", "\\.\\1\\.", x), "\\."))
-        
-        
-        combName <- ""
-        openBrack <- FALSE
-        openBrack1 <- FALSE
-        while (length(x) > 0) {
-            if (grepl(x[1], "[[:punct:]]")) {
-                combName <- paste(combName, x[1], sep = "")
-            } else {
-                matchBrack <- storeBrack[grep(x[1], storeBrack)]
-                eachMatchBrack <- unlist(strsplit(matchBrack, "[[:punct:]]"))
-                
-                if (any(eachMatchBrack == "")) 
-                  eachMatchBrack <- eachMatchBrack[-which(eachMatchBrack == "")]
-                
-                if (length(eachMatchBrack) == 1) {
-                  if (grepl("\\:", matchBrack) && any(apply(sapply(nameX[-1], function(x) grepl(x, 
-                    storeBrack)), 1, all))) {
-                    combName <- paste(combName, x[1], sep = "")
-                    
-                  } else if (grepl("\\:", matchBrack) && grepl("\\*", storeBrack[grep(nameX[-1][1], 
-                    storeBrack)])) {
-                    
-                    combName <- paste(combName, "(", x[1], sep = "")
-                    openBrack <- TRUE
-                  } else {
-                    
-                    combName <- paste(combName, x[1], sep = "")
-                  }
-                } else {
-                  if ((which(eachMatchBrack == x[1]) == 1) && any(!is.na(match(eachMatchBrack, 
-                    x[-1])))) {
-                    combName <- paste(combName, "(", x[1], sep = "")
-                    openBrack1 <- TRUE
-                  } else if ((which(eachMatchBrack == x[1]) == length(eachMatchBrack)) || 
-                    all(is.na(match(eachMatchBrack, x[-1])))) {
-                    combName <- paste(combName, x[1], ")", sep = "")
-                    
-                    if (openBrack && openBrack1) {
-                      combName <- paste(combName, ")", sep = "")
-                      openBrack <- FALSE
-                      openBrack1 <- FALSE
-                    }
-                    
-                  } else {
-                    combName <- paste(combName, x[1], sep = "")
-                  }
-                }
-            }
-            x <- x[-1]
-        }
-        
-        return(combName)
-    }
-    
-    #browser()
-    checkCross <- attr(rT, "factor")
-    
-    if (any(grepl(":", rT.terms))) {
-        check.rT.terms <- rT.terms[grep(":", rT.terms)]
-        
-        checkCross <- checkCross[, check.rT.terms]
-        
-        if (!is.matrix(checkCross)) {
-            temp <- matrix(checkCross)
-            rownames(temp) <- names(checkCross)
-            colnames(temp) <- check.rT.terms
-            checkCross <- temp
-        }
-        
-        split.check.rT.terms <- strsplit(check.rT.terms, ":")
-        
-        for (i in 1:length(split.check.rT.terms)) {
-            newName <- ""
-            for (j in 1:(length(split.check.rT.terms[[i]]) - 1)) {
-                if (checkCross[split.check.rT.terms[[i]][j], i] == 1) {
-                  newName <- paste(newName, split.check.rT.terms[[i]][j], "*", sep = "")
-                } else {
-                  newName <- paste(newName, split.check.rT.terms[[i]][j], ":", sep = "")
-                }
-            }
-            newName <- paste(newName, split.check.rT.terms[[i]][length(split.check.rT.terms[[i]])], 
-                sep = "")
-            check.rT.terms[i] <- newName
-        }
-        
-        len <- intersect(grep("\\:", check.rT.terms), grep("\\*", check.rT.terms))
-        if (length(len) > 0) {
-            for (i in 1:length(len)) check.rT.terms[len[i]] <- checkBrack(check.rT.terms[len[i]], 
-                blk.str)
-            
-        }
-        
-        
-        rT.terms[grep(":", rT.terms)] <- check.rT.terms
-    }
-    # browser()
-    
+	if(length(rT.terms) > 1)
+		rT.terms = adjustEffectNames(effectsMatrix = attr(rT, "factors"), effectNames = rT.terms)
+	
     if (names(Pb)[1] == "e") {
         names(Pb)[1] <- paste("Within", paste(unique(unlist(strsplit(names(Pb)[-1], 
-            "[[:punct:]]+"))), collapse = "."))
+            "[[:punct:]]"))), collapse = "."))
         names(Pb)[-1] <- rev(rT.terms)
         
     } else {
@@ -228,71 +117,28 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     effectsMatrix <- attr(fT, "factor")
      #browser()
     
-	oldTrtTerm = trtTerm
-	
-    if (any(grepl(":", trtTerm))) {
-        check.trtTerm <- trtTerm[grep(":", trtTerm)]
-        
-        effectsMatrix1 <- effectsMatrix[, check.trtTerm]
-        
-        if (!is.matrix(effectsMatrix1)) {
-            temp <- matrix(effectsMatrix1)
-            rownames(temp) <- names(effectsMatrix1)
-            colnames(temp) <- check.trtTerm
-            effectsMatrix1 <- temp
-        }
-        
-        split.check.trtTerm <- strsplit(check.trtTerm, ":")
-        
-        for (i in 1:length(split.check.trtTerm)) {
-            newName <- ""
-            for (j in 1:(length(split.check.trtTerm[[i]]) - 1)) {
-                if (effectsMatrix1[split.check.trtTerm[[i]][j], i] == 1) {
-                  newName <- paste(newName, split.check.trtTerm[[i]][j], "*", sep = "")
-				  } else if(effectsMatrix1[split.check.trtTerm[[i]][j], i] == 2){
-				   newName <- paste(newName, split.check.trtTerm[[i]][j], "(", sep = "")
-                } else {
-                  newName <- paste(newName, split.check.trtTerm[[i]][j], ":", sep = "")
-                }
-            }
-            newName <- paste(newName, split.check.trtTerm[[i]][length(split.check.trtTerm[[i]])], 
-                sep = "")
-            check.trtTerm[i] <- newName
-        }
-        
-		#browser()
-        len <- intersect(grep("\\:", check.trtTerm), grep("\\*", check.trtTerm))
-		
-		checkBrack(check.trtTerm[5],  trt.str)
-				
-        if (length(len) > 0) {
-            for (i in 1:length(len)) check.trtTerm[len[i]] <- checkBrack(check.trtTerm[len[i]], 
-                trt.str)
-            
-        }
-        
-        trtTerm[grep(":", trtTerm)] <- check.trtTerm
-        colnames(effectsMatrix) <- trtTerm
-        
-    }
-    
+	    
 	#browser()
 
-    
-  	T <- makeContrMat(design.df = design.df, effectNames = oldTrtTerm, effectsMatrix = effectsMatrix, 
+	if(length(trtTerm) > 1)
+	  trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
+		
+  	T <- makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
   	                  contr.vec = trt.contr)
-  	N <- makeOverDesMat(design.df = design.df, effectNames = oldTrtTerm)
-  	Rep <- getTrtRep(design.df, oldTrtTerm)
-  	trt.Coef <- getTrtCoef(design.df, oldTrtTerm)
+  	N <- makeOverDesMat(design.df = design.df, effectNames = trtTerm)
+  	Rep <- getTrtRep(design.df, trtTerm)
+  	trt.Coef <- getTrtCoef(design.df, trtTerm)
 	
+
+	
+	#When there are treatment contrasts defined 
   	if (any(grepl("\\.", names(T)))) {
   	  colnames(Rep) <- trtTerm
-  	  names(trt.Coef) <- trtTerm
-  	  
+  	  names(trt.Coef) <- trtTerm 
   	  Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
   	  trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
   	} else {
-  	  names(T) = trtTerm 
+  	 
   	  colnames(Rep) <- trtTerm
   	  names(trt.Coef) <- trtTerm      
 	}
