@@ -26,4 +26,5 @@ export(  getCoefVC.onePhase,
 		summaryAovTwoPhase,
 		toLatexTable,	
 		tr,
-		unity)
+		unity,
+    adjustEffectNames)
