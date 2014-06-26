@@ -1,6 +1,8 @@
 # pre- and post-multiply NTginvATN by block projection matrices for each stratum
 
 
+
+
 #' Construct the Matrix from Information Decomposition
 #' 
 #' Perform the information decomposition for either the block or treatment

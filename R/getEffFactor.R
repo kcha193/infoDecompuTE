@@ -2,6 +2,8 @@
 # effFactors for each stratum
 
 
+
+
 #' Compute the Efficiency Factors of Treatment effects
 #' 
 #' Compute the Efficiency Factors for every treatment effect within a single

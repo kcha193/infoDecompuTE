@@ -1,6 +1,8 @@
 # Averaging matrix
 
 
+
+
 #' Averaging Matrix
 #' 
 #' Construct a n-by-n averaging matrix.

@@ -1,6 +1,8 @@
 # J matrix
 
 
+
+
 #' Identity Matrix Minus Averging Matrix
 #' 
 #' Construct a square matrix which the identity matrix minus the averging

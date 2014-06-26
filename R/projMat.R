@@ -1,6 +1,8 @@
 # projection matrix
 
 
+
+
 #' Construct a Projection Matrix
 #' 
 #' Compute the projection matrix from a square matrix.

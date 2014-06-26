@@ -1,6 +1,4 @@
 # Unity matrix
-
-
 #' Construct a unity vector
 #' 
 #' Construct a vector with all elements unity.

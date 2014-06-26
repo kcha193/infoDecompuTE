@@ -1,6 +1,5 @@
 # Trace operation
 
-
 #' Trace of the Matrix
 #' 
 #' Compute the trace of the square matrix.
