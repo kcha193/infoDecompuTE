@@ -19,7 +19,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     
     checkBrack <- function(x, str.for) {
         # browser()
-        str.for <- gsub("/", "\\:", str.for)
+        str.for <- gsub("/", ":", str.for)
         # storeBrack = unlist(strsplit(gsub('([[:punct:]])', '\\.\\1\\.', str.for),
         # '\\.'))
         storeBrack <- unlist(strsplit(unlist(strsplit(str.for, "\\(")), "\\)"))
@@ -88,7 +88,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
         return(combName)
     }
     
-    
+    #browser()
     checkCross <- attr(rT, "factor")
     
     if (any(grepl(":", rT.terms))) {
@@ -148,6 +148,8 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     effectsMatrix <- attr(fT, "factor")
      #browser()
     
+	oldTrtTerm = trtTerm
+	
     if (any(grepl(":", trtTerm))) {
         check.trtTerm <- trtTerm[grep(":", trtTerm)]
         
@@ -167,6 +169,8 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
             for (j in 1:(length(split.check.trtTerm[[i]]) - 1)) {
                 if (effectsMatrix1[split.check.trtTerm[[i]][j], i] == 1) {
                   newName <- paste(newName, split.check.trtTerm[[i]][j], "*", sep = "")
+				  } else if(effectsMatrix1[split.check.trtTerm[[i]][j], i] == 2){
+				   newName <- paste(newName, split.check.trtTerm[[i]][j], "(", sep = "")
                 } else {
                   newName <- paste(newName, split.check.trtTerm[[i]][j], ":", sep = "")
                 }
@@ -176,7 +180,11 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
             check.trtTerm[i] <- newName
         }
         
+		#browser()
         len <- intersect(grep("\\:", check.trtTerm), grep("\\*", check.trtTerm))
+		
+		checkBrack(check.trtTerm[5],  trt.str)
+				
         if (length(len) > 0) {
             for (i in 1:length(len)) check.trtTerm[len[i]] <- checkBrack(check.trtTerm[len[i]], 
                 trt.str)
@@ -188,24 +196,27 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
         
     }
     
-    T <- makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
-        contr.vec = trt.contr)
-    N <- makeOverDesMat(design.df = design.df, effectNames = trtTerm)
-    Rep <- getTrtRep(design.df, trtTerm)
-    trt.Coef <- getTrtCoef(design.df, trtTerm)
+	#browser()
+
     
-    if (any(grepl("\\.", names(T)))) {
-        colnames(Rep) <- trtTerm
-        names(trt.Coef) <- trtTerm
-        
-        Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
-        trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
-    }
-   
-    
-    
-    colnames(Rep) <- names(T)
-    names(trt.Coef) <- names(T)
+  	T <- makeContrMat(design.df = design.df, effectNames = oldTrtTerm, effectsMatrix = effectsMatrix, 
+  	                  contr.vec = trt.contr)
+  	N <- makeOverDesMat(design.df = design.df, effectNames = oldTrtTerm)
+  	Rep <- getTrtRep(design.df, oldTrtTerm)
+  	trt.Coef <- getTrtCoef(design.df, oldTrtTerm)
+	
+  	if (any(grepl("\\.", names(T)))) {
+  	  colnames(Rep) <- trtTerm
+  	  names(trt.Coef) <- trtTerm
+  	  
+  	  Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
+  	  trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
+  	} else {
+  	  names(T) = trtTerm 
+  	  colnames(Rep) <- trtTerm
+  	  names(trt.Coef) <- trtTerm      
+	}
+	
     ######################################################################################### Start calculating the VCs 1-phase experiment
     #browser()
     # pre- and post-multiply NTginvATN by block projection matrices

@@ -31,7 +31,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         check.blkTerm1 <- blkTerm1
     }
     
-    # browser()
+    # Check for Complete confounding.
     for (i in 1:length(check.blkTerm2)) {
         if (length(check.blkTerm1) == 1) {
             if (all(as.numeric(as.factor(design.df[, check.blkTerm1])) == as.numeric(as.factor(design.df[, 
@@ -213,6 +213,8 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     blkTerm1 <- attr(rT1, "term.labels")
     effectsMatrix <- attr(rT1, "factor")
     
+	oldBlkTerm1 = blkTerm1
+	
     checkCross <- attr(rT1, "factor")
     if (any(grepl(":", blkTerm1))) {
         check.blkTerm1 <- blkTerm1[grep(":", blkTerm1)]
@@ -252,12 +254,13 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         blkTerm1[grep(":", blkTerm1)] <- check.blkTerm1
         colnames(effectsMatrix) <- blkTerm1
     }
+   
     
-    
-    T <- makeContrMat(design.df, effectNames = blkTerm1, effectsMatrix = effectsMatrix, 
+    T <- makeContrMat(design.df, effectNames = oldBlkTerm1, effectsMatrix = effectsMatrix, 
         contr.vec = blk.contr)
-    N <- makeOverDesMat(design.df, blkTerm1)
+    N <- makeOverDesMat(design.df, oldBlkTerm1)
     
+
     
     # browser()
     
@@ -295,6 +298,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     trtTerm <- attr(fT, "term.labels")
     effectsMatrix <- attr(fT, "factor")
     
+	oldTrtTerm = trtTerm
     
     if (any(grepl(":", trtTerm))) {
         check.trtTerm <- trtTerm[grep(":", trtTerm)]
@@ -336,11 +340,12 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         
     }
     
-    T <- makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
+  #browser()
+    T <- makeContrMat(design.df = design.df, effectNames = oldTrtTerm, effectsMatrix = effectsMatrix, 
         contr.vec = trt.contr)
-    N <- makeOverDesMat(design.df = design.df, effectNames = trtTerm)
-    Rep <- getTrtRep(design.df, trtTerm)
-    trt.Coef <- getTrtCoef(design.df, trtTerm)
+    N <- makeOverDesMat(design.df = design.df, effectNames = oldTrtTerm)
+    Rep <- getTrtRep(design.df, oldTrtTerm)
+    trt.Coef <- getTrtCoef(design.df, oldTrtTerm)
     
     if (any(grepl("\\.", names(T)))) {
         colnames(Rep) <- trtTerm
@@ -348,10 +353,14 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         
         Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
         trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
+    } else {
+      names(T) = trtTerm 
+      colnames(Rep) <- trtTerm
+      names(trt.Coef) <- trtTerm      
     }
     
-    colnames(Rep) <- names(T)
-    names(trt.Coef) <- names(T)
+	
+  
     
 	#browser()
 	
