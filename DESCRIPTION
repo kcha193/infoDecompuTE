@@ -9,5 +9,3 @@ Description: InfoDecompuTE is capable of generating the structure of the analysi
 Depends: R (>= 2.10.0), MASS
 License: GPL (>= 3)
 LazyLoad: yes
-Imports: Rcpp (>= 0.11.2), RcppArmadillo (>= 0.4.300.8.0)
-LinkingTo: Rcpp, RcppArmadillo

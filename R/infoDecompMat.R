@@ -63,10 +63,8 @@ infoDecompMat <- function(z, T, N) {
     nEffect <- length(T)
     PNTginvATNP <- T
     
-    PNTginvATNP[[1]] <- PNTginvATNP(z, N, T[[1]], invInfMat(C = z, N = N, T = T[[1]]))
-    
-    #PNTginvATNP[[1]] <- z %*% N %*% T[[1]] %*% invInfMat(C = z, N = N, T = T[[1]]) %*% 
-    #    T[[1]] %*% t(N) %*% t(z)
+   PNTginvATNP[[1]] <- z %*% N %*% T[[1]] %*% invInfMat(C = z, N = N, T = T[[1]]) %*% 
+        T[[1]] %*% t(N) %*% t(z)
     
     # PNTginvATNP[[1]] = z %*% N %*% T[[1]] %*% ginv(t(T[[1]]) %*% t(N) %*% z %*% N %*%
     # T[[1]]) %*% t(N) %*% t(z)
@@ -75,10 +73,8 @@ infoDecompMat <- function(z, T, N) {
     
     if (nEffect != 1) {
         for (i in 2:nEffect) {
-            PNTginvATNP[[i]] <- PNTginvATNP(newZ, N, T[[i]], invInfMat(C = newZ, N = N, T = T[[i]]))
-            
-            #PNTginvATNP[[i]] <- newZ %*% N %*% t(T[[i]]) %*% invInfMat(C = newZ, N = N, 
-            #    T = T[[i]]) %*% T[[i]] %*% t(N) %*% t(newZ)
+            PNTginvATNP[[i]] <- newZ %*% N %*% t(T[[i]]) %*% invInfMat(C = newZ, N = N, 
+                T = T[[i]]) %*% T[[i]] %*% t(N) %*% t(newZ)
             
             # PNTginvATNP[[i]] = newZ %*% N %*% t(T[[i]]) %*% ginv(t(T[[i]]) %*% t(N) %*% z %*%
             # N %*% T[[i]]) %*% T[[i]] %*% t(N) %*% t(newZ)

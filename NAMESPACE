@@ -1,8 +1,4 @@
-useDynLib(infoDecompuTE)
 import(MASS)
-import(RcppArmadillo)
-importFrom(Rcpp, evalCpp)
-
 export(  getCoefVC.onePhase,
 		getCoefVC.twoPhase,	
 		getEffFactor,	
