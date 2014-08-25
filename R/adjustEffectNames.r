@@ -64,7 +64,7 @@ adjustEffectNames = function(effectsMatrix, effectNames){
         newEffectNames = paste(newEffectNames, rownames(effectsMatrix)[i], "(",  rownames(effectsMatrix)[i + 1],")", sep = "")  
         
       } else if (effectsMatrix[i,j] == 2 &&   effectsMatrix[i+ 1,j ] == 2){
-        newEffectNames = paste(newEffectNames, rownames(effectsMatrix)[i], sep = "")   
+        newEffectNames = paste(newEffectNames, rownames(effectsMatrix)[i], ".", sep = "")   
         
       }
       

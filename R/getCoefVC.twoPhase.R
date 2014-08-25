@@ -39,9 +39,15 @@ getCoefVC.twoPhase <- function(Pb, design.df, v.mat, response, table.legend, dec
             
             if (nrow(tmp) == 1 && grepl("Residual", rownames(tmp))) {
                 
-                tmp <- c(tmp[1], tmp/tmp[1])
-                tmp <- c(attr(fractions(tmp[-length(tmp)]), "fracs"), as.character(round(tmp[length(tmp)], 
-                  digits = 10)))
+
+                if (decimal) {
+                  tmp <- t(apply(tmp, 1, function(x) c(round(c(x[1], x[-length(x)]/x[1]), 
+                                                             digits = digits), as.character(round(x[length(x)]/x[1], digits = 3)))))
+                } else {
+                  tmp <- t(apply(tmp, 1, function(x) c(attr(fractions(c(round(x[1]), x[-length(x)]/x[1])), 
+                                                            "fracs"), as.character(round(x[length(x)]/x[1], digits = 3)))))
+                }
+                
                 VC <- rbind(VC, tmp)
                 if (grepl("Within", names(Pb[[i]][k])) && length(Pb[[i]]) > 1) {
                   if (noindent) {

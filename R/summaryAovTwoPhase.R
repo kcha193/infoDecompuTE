@@ -248,14 +248,14 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
 		blkTerm1 = adjustEffectNames(effectsMatrix = effectsMatrix, effectNames = blkTerm1)
 
 	
-	     
+	#browser()   
     T <- makeContrMat(design.df, effectNames = blkTerm1, effectsMatrix = effectsMatrix, 
         contr.vec = blk.contr)
     N <- makeOverDesMat(design.df, blkTerm1)
     
 
     
-    # browser()
+    #browser()
     
     res <- paste("Within", paste(unique(unlist(strsplit(names(T), "[[:punct:]]+"))), 
         collapse = "."))

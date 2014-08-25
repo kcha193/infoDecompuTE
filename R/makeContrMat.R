@@ -99,6 +99,7 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
     # obtaining the numbers of the levels from the design
     if (any(grepl("[[:punct:]]", effectNames))) {
         uniqueTrtCols <- unique(unlist(strsplit(effectNames, "[[:punct:]]")))
+        #browser()
         nLevels <- sapply(design.df[, uniqueTrtCols], function(x) nlevels(as.factor(x)))
         
     } else if (length(effectNames) == 1) {
