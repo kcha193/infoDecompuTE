@@ -220,6 +220,8 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         }
     }
     
+	rT1 <- terms(as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
+	blkTerm1 <- attr(rT1, "term.labels")
      
     Z1 <- makeBlkDesMat(design.df, rev(blkTerm1))
     Z2 <- makeBlkDesMat(design.df, rev(blkTerm2))

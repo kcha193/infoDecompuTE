@@ -35,6 +35,7 @@ makeBlkDesMat <- function(design.df, blkTerm) {
     isFactorNameNumeric <- function(levels) !as.logical(length(grep("[A-Z]|[a-z]", levels)))
     
     makeDesignMatrix <- function(nRows, design.df, col) {
+		#browser()
         if (grepl(":", col)) {
             factor <- as.factor(apply(design.df[, unlist(strsplit(col, ":"))], 1, function(x) paste(x, 
                 collapse = ".")))
