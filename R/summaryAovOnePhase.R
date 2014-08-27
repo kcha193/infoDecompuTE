@@ -115,11 +115,8 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     
     trtTerm <- attr(fT, "term.labels")
     effectsMatrix <- attr(fT, "factor")
-     #browser()
+    #browser()
     
-	    
-	#browser()
-
 	if(length(trtTerm) > 1)
 	  trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
 		
@@ -129,7 +126,17 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
   	Rep <- getTrtRep(design.df, trtTerm)
   	trt.Coef <- getTrtCoef(design.df, trtTerm)
 	
-
+	#browser()
+	
+	#################################################################################################
+	#Needs to check
+	#allZero = apply(N, 2, function(x) all(x==0))
+	#N = N[,!allZero]
+	#T = lapply(T, function(x) x[!allZero, !allZero])
+	#Rep = Rep[!allZero, ]
+	
+	
+	################################################################################################
 	
 	#When there are treatment contrasts defined 
   	if (any(grepl("\\.", names(T)))) {

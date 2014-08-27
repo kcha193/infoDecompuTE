@@ -45,7 +45,10 @@ getTrtRep <- function(design.df, trtTerm) {
         
         level <- t(sapply(strsplit(sort(levels(interaction(design.df[, unique(unlist(strsplit(trtTerm, 
             "[[:punct:]]")))]))), "\\."), rbind))
-        
+         	 	 
+		 		
+		 #level <- t(sapply(strsplit( sort(unique(apply(design.df[, unique(unlist(strsplit(trtTerm, #"[[:punct:]]")))],1,  function(x) paste(x, collapse = ".")))), "\\."), rbind))
+  
         colnames(level) <- unique(unlist(strsplit(trtTerm, "[[:punct:]]")))
         
         inter <- trtTerm[grepl("[[:punct:]]", trtTerm)]
@@ -108,6 +111,10 @@ getTrtRep <- function(design.df, trtTerm) {
         
         level <- t(sapply(strsplit(sort(levels(interaction(design.df[, trtTerm]))), 
             "\\."), rbind))
+		
+		#level <- t(sapply(strsplit( sort(unique(apply(design.df[, trtTerm],1,  
+		#		function(x) paste(x, collapse = ".")))), "\\."), rbind))		
+			
         colnames(level) <- trtTerm
         
         repList <- lapply(design.df[, trtTerm], table)
