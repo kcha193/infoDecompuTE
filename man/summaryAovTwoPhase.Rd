@@ -16,7 +16,7 @@ summaryAovTwoPhase(design.df, blk.str1, blk.str2, trt.str, var.comp = NA,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{design.df}{
-a data frame containing the experimental design. Requires every column be a \code{\link{factor}}.
+a data frame containing the experimental design. Requires every column be a \code{\link{factor}. Any punctuation or symbol such as dots or parentheses should be avoid for the column names.}.
 }
  \item{blk.str1}{
 a single string of characters containing the structural formula for the block factors of the first-phase experiment using the Wilkinson-Rogers' syntax. 

@@ -162,9 +162,14 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
         count <- 1
         
         contr.vec <- new.contr.vec
-        
-        totalLength <- length(contr.vec[-which(sapply(contr.vec, class) == "list")]) + 
-            sum(sapply(contr.vec[which(sapply(contr.vec, class) == "list")], length))
+        #browser()
+		
+        totalLength <- length(contr.vec[sapply(contr.vec, class) != "list"])
+		
+		if(any(sapply(contr.vec, class) == "list")){
+	
+			 totalLength = totalLength + sum(sapply(contr.vec[which(sapply(contr.vec, class) == "list")], length))
+		}
         
         newEffectsMatrix <- matrix(0, ncol = totalLength, nrow = nrow(effectsMatrix))
         rownames(newEffectsMatrix) <- rownames(effectsMatrix)

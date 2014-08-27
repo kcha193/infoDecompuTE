@@ -223,6 +223,9 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
 	rT1 <- terms(as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
 	blkTerm1 <- attr(rT1, "term.labels")
      
+	
+	#browser()
+	
     Z1 <- makeBlkDesMat(design.df, rev(blkTerm1))
     Z2 <- makeBlkDesMat(design.df, rev(blkTerm2))
     
@@ -233,23 +236,30 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
 		blkTerm2 = adjustEffectNames(effectsMatrix = attr(rT2, "factors"), effectNames = blkTerm2)
 
     
+	
     if (names(Pb)[1] == "e") {
         names(Pb)[1] <- paste("Within", paste(unique(unlist(strsplit(names(Pb)[-1], 
             "[[:punct:]]+"))), collapse = "."))
         
-        names(Pb)[-1] <- rev(blkTerm2)
+        names(Pb)[-1] <- names(Z2)[-1] <-rev(blkTerm2)
+		 
     } else {
-        names(Pb) <- rev(blkTerm2)
+        names(Pb) <- names(Z2) <- rev(blkTerm2)
     }
     
     # write('3. Defining the block structures of first phase within second Phase.', '')
-    blkTerm1 <- attr(rT1, "term.labels")
     effectsMatrix <- attr(rT1, "factor")
     
 	if(length(blkTerm1) > 1)
 		blkTerm1 = adjustEffectNames(effectsMatrix = effectsMatrix, effectNames = blkTerm1)
-
 	
+	if (names(Z1)[1] == "e") {
+		names(Z1)[-1] <- rev(blkTerm1)
+		 
+    } else {
+        names(Z1) <- rev(blkTerm1)
+    }
+ 	
 	#browser()   
     T <- makeContrMat(design.df, effectNames = blkTerm1, effectsMatrix = effectsMatrix, 
         contr.vec = blk.contr)
