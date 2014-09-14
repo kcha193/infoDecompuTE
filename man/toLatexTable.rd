@@ -21,7 +21,7 @@ a vector of character allows the users to modify symbols for the fixed effects.
 }
 }
 \details{
-Once the Latex script is generated, it requires the user to install and load two Latex packages: \code{booktabs} and \code{bm} to complie the Latex script.
+Once the Latex script is generated, it requires the user to install and load two Latex packages: \code{booktabs} and \code{bm} to compile the Latex script.
 }
 \author{
 Kevin Chang

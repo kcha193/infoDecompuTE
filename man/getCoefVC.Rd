@@ -5,7 +5,7 @@
 Get Variance Components' Coefficients and Mean Squares for Single-Phase or Two-Phase Experiments
 }
 \description{
-Compute the variance components' coefficients and corresponding to random effects in the expected mean squares of ANOVA table in single-phase or two-phase experiments. These cofficients are then inserted to a matrix where the rows correspond to each source of variation and column correspond to DF and every variance componenet. The mean squares is calculated if the \code{response} arguement is used.
+Compute the variance components' coefficients and corresponding to random effects in the expected mean squares of ANOVA table in single-phase or two-phase experiments. These coefficients are then inserted to a matrix where the rows correspond to each source of variation and column correspond to DF and every variance component. The mean squares is calculated if the \code{response} argument is used.
 }
 \usage{
 getCoefVC.onePhase(Pb, design.df, v.mat, response, table.legend, decimal, digits)
@@ -36,9 +36,9 @@ a integer indicating the number of decimal places. Default is 2, resulting in 2 
 }
 }
 \details{
-The main purpose of this function is to combine the matrices presenting every source of varation of the ANOVA table and the variance matrix to compute the  coefficients of the variance components.
+The main purpose of this function is to combine the matrices presenting every source of variation of the ANOVA table and the variance matrix to compute the  coefficients of the variance components.
 
-The complication arise in giving the row names of the matrix for the source of variaion in the ANOVA table.
+The complication arise in giving the row names of the matrix for the source of variation in the ANOVA table.
 }
 \value{
 A matrix containing the characters. 

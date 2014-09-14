@@ -23,4 +23,5 @@ export(  getCoefVC.onePhase,
 		toLatexTable,	
 		tr,
 		unity,
-    adjustEffectNames)
+    adjustEffectNames,
+	adjustMissingLevels)

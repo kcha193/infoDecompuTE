@@ -27,7 +27,7 @@ A list of matrices.
 \details{
 The main purpose of this function is to construct a list of resultant matrices associated with each source of variation after the information decomposition. 
 
-This list of matrices are then used to compute the coefficient of the variance componenets in the expected mean squares.   
+This list of matrices are then used to compute the coefficient of the variance components in the expected mean squares.   
 }
 
 \author{

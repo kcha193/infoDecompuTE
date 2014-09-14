@@ -20,11 +20,11 @@ a vector of charactor containing the labels of the treatment or block terms in t
 \details{
 The main purpose this matrix is used in information decomposition. For the factorial experiment, this matrix is typeically the treatment design matrix associated with the interaction effects, because the interaction effects are the smallest unit for the treatment effects.   
 
-For the two-phase experiments, the same method of information decomposition is used for the block effects of Phase 1 experiment in the stratum defined from the block structure of the Phase 2 experiment. Hence, the block design matrix of the smallest unit for the block effects of Phase 1 experiment can also be contructed using this function.
+For the two-phase experiments, the same method of information decomposition is used for the block effects of Phase 1 experiment in the stratum defined from the block structure of the Phase 2 experiment. Hence, the block design matrix of the smallest unit for the block effects of Phase 1 experiment can also be constructed using this function.
 }
 
 \value{
-A matrix where the rows corrospond to the observation and columns corrospond to the overall combination of the treatment factors or the block facotrs of the Phase 1 experiment.
+A matrix where the rows correspond to the observation and columns correspond to the overall combination of the treatment factors or the block factors of the Phase 1 experiment.
 }
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated Designs}. Second edition. Chapman
