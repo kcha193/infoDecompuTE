@@ -42,10 +42,12 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
         nLevels <- sapply(design.df[, uniqueTrtCols], function(x) nlevels(as.factor(x)))
         
     } else if (length(effectNames) == 1) {
+        uniqueTrtCols = effectNames
         nLevels <- nlevels(design.df[, effectNames])
         names(nLevels) <- effectNames
         
     } else {
+        uniqueTrtCols = effectNames
         nLevels <- sapply(design.df[, effectNames], function(x) nlevels(as.factor(x)))
     }
     
@@ -66,8 +68,7 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
     } else {
         new.contr.vec <- vector(length = length(uniqueTrtCols), mode = "list")
         names(new.contr.vec) <- uniqueTrtCols
-        
-		
+   		
         for (i in 1:length(new.contr.vec)) {
             new.contr.vec[i] <- ifelse(is.null(contr.vec[[names(new.contr.vec)[i]]]), 
                 NA, contr.vec[names(new.contr.vec)[i]])
@@ -84,11 +85,11 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
 		names(effectList) = effectNames
 		
 		 # Construct the interactions based on the contrasts
-        if (any(grepl("[[:punct:]]", effectNames))) {
-            interTerms <- grep("[[:punct:]]", effectNames)
+        #if (any(grepl("[[:punct:]]", effectNames))) {
+        #    interTerms <- grep("[[:punct:]]", effectNames)
             
-            for (i in interTerms) {
-                mainTerms <- unlist(strsplit(effectNames[[i]], "[[:punct:]]"))
+            for (i in effectNames) {
+                mainTerms <- unlist(strsplit(i, "[[:punct:]]"))
                 mainTerms.list <- vector(length = length(mainTerms), mode = "list")
                 names(mainTerms.list) <- mainTerms
                 
@@ -106,8 +107,8 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
                 
                 names(effectList[[i]]) <- levels(interaction(mainTerms.list))
             }
-        }
-		
+        #}
+	
 		totalLength <- length(effectList[sapply(effectList, class) != "list"])
 		
 		if(any(sapply(effectList, class) == "list")){
@@ -160,7 +161,7 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
                     trtNames <- match(unlist(strsplit(colnames(newEffectsMatrix)[j], 
                       "\\.")), names(trtContr))
                     
-                    matList[[j]] <- trtContr[[trtNames[-which(is.na(trtNames))]]]
+                    matList[[j]] <- trtContr[[trtNames[!(is.na(trtNames))]]]
                   } else if (newEffectsMatrix[i, j] == 2) {
                     matList[[j]] <- identityMat(nLevels[i])
                   } else {

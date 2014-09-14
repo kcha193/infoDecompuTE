@@ -1,4 +1,5 @@
 import(MASS)
+import(gdata)
 export(  getCoefVC.onePhase,
 		getCoefVC.twoPhase,	
 		getEffFactor,	
