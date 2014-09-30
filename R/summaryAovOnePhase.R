@@ -99,10 +99,11 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     
     ############################################################################################################## 
     
-    #browser()
     effFactors <- lapply(Pb, function(z) getEffFactor(z, T, N, Rep))
     effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]
     
+	#browser()
+	
     EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Coef = trt.Coef, T = T, Rep = Rep, 
         table.legend = table.legend, decimal = decimal, digits = digits)
     if (latex) {

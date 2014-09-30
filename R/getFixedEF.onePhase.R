@@ -16,14 +16,24 @@ getFixedEF.onePhase <- function(effFactors, trt.Coef, T, Rep, table.legend, deci
             if (is.null(effFactors[[i]][[j]])) 
                 next
             
-            char.trt <- attr(fractions(trt.Coef * unlist(effFactors[[i]][[j]])), "fracs")
-            char.trt.eff <- attr(fractions(unlist(effFactors[[i]][[j]])), "fracs")
-            
-            if (decimal) {
-                char.trt <- round(trt.Coef * unlist(effFactors[[i]][[j]]), digits = digits)
-                char.trt.eff <- round(unlist(effFactors[[i]][[j]]), digits = digits)
-            }
-            
+					
+			effCoefList = effFactors[[i]][[j]]
+				
+			#browser()
+				
+			if (decimal) {
+				char.trt.eff <- round(sapply(effCoefList, function(x) x[1]), digits = digits)
+				char.trt <- sapply(effCoefList, function(x) 
+					ifelse(length(x)>2,  paste(round(x[2:length(x)], digits = digits), collapse = ","), 
+									round(x[2], digits = digits)))
+			} else {
+				char.trt <- sapply(effCoefList, function(x) 
+					ifelse(length(x)>2,  paste(attr(fractions(x[2:length(x)]), "fracs"), collapse = ","), 
+										attr(fractions(x[2]), "fracs")))
+									
+				char.trt.eff <- attr(fractions(sapply(effCoefList, function(x) x[1])), "fracs")
+			}
+			
             trt.temp <- c(char.trt, char.trt.eff)
             
             trt <- rbind(trt, trt.temp)

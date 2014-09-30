@@ -11,6 +11,8 @@ getEffFactor <- function(z, T, N, Rep) {
     PNTginvATNP[[1]] <- z %*% N %*% T[[1]] %*% invInfMat(C = z, N = N, T = T[[1]]) %*% 
         T[[1]] %*% t(N) %*% t(z)
     
+	#browser()
+	
     if (!all(PNTginvATNP[[1]] < 1e-06)) {
         effFactors[[1]] <- vector("list", nEffect)
         names(effFactors[[1]]) <- names(T)
@@ -19,10 +21,21 @@ getEffFactor <- function(z, T, N, Rep) {
             # eigenvalues of the information matrix
             va <- Re(eigen(r.adjust %*% T[[i]] %*% t(N) %*% PNTginvATNP[[1]] %*% N %*% 
                 T[[i]] %*% r.adjust)$va)
-                  
+            
+			va = va[which(va > 1e-07)]
+			
+			trt.coef = Re(eigen(T[[i]] %*% t(N) %*% PNTginvATNP[[1]] %*% N %*% 
+                T[[i]])$va)[1:length(va)]
+				
+			if(isTRUE(all.equal(as.numeric(outer(va, va, "/")),rep(1,length(va) * length(va))))){
+			
             # harmonic means of the canonical efficiency factors to give the average efficiency
             # factor
-            effFactors[[1]][[i]] <- 1/mean(1/va[which(va > 1e-07)])
+				effFactors[[1]][[i]] <- c(1/mean(1/va), trt.coef[1])
+			
+			} else {
+				effFactors[[1]][[i]] <- c(1/mean(1/va), trt.coef)
+			}
         }
     }
     
@@ -46,10 +59,21 @@ getEffFactor <- function(z, T, N, Rep) {
                 r.adjust <- ginv(sqrt(diag(Rep[, j])))
                 va <- Re(eigen(r.adjust %*% T[[j]] %*% t(N) %*% PNTginvATNP[[i]] %*% 
                   N %*% T[[j]] %*% r.adjust)$va)
-                # va = Re(eigen(T[[j]] %*% t(N) %*% PNTginvATNP[[i]] %*% N %*% T[[j]])$va)
                 
-                # effFactors[[i]][[j]] = 1/mean(Rep[names(T[j])]/va[which(va>1e-6)])
-                effFactors[[i]][[j]] <- 1/mean(1/va[which(va > 1e-07)])
+				va = va[which(va > 1e-07)]
+			
+				trt.coef = Re(eigen(T[[j]] %*% t(N) %*% PNTginvATNP[[i]] %*% N %*% 
+					T[[j]])$va)[1:length(va)]
+					
+				if(isTRUE(all.equal(as.numeric(outer(va, va, "/")),rep(1,length(va) * length(va))))){
+				
+				# harmonic means of the canonical efficiency factors to give the average efficiency
+				# factor
+					effFactors[[i]][[j]] <- c(1/mean(1/va), trt.coef[1])
+				
+				} else {
+					effFactors[[i]][[j]] <- c(1/mean(1/va), trt.coef)
+				}
                 
             }
             newZ <- (newZ %*% t(newZ)) - PNTginvATNP[[i]]

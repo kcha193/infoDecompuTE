@@ -10,10 +10,10 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
 	design.df = newTerms$design.df
 	trt.str = newTerms$str.for
 	
-	#newTerms = adjustMissingLevels(design.df, blk.str1)
+	newTerms = adjustMissingLevels(design.df, blk.str1)
 		
-	#design.df = newTerms$design.df
-	#blk.str1 = newTerms$str.for
+	design.df = newTerms$design.df
+	blk.str1 = newTerms$str.for
 	
     # Extract the fixed and random terms
     

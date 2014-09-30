@@ -144,9 +144,14 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
             if (coef.VC[j] == 1) 
                 coef.VC[j] <- ""
             
-            fixed.VC <- paste(fixed.VC, coef.VC[j], "\\theta_{", fixed.names[j], "}", 
-                sep = "")
-            
+			if( grepl(",", coef.VC[j])){
+				fixed.VC <- paste(fixed.VC, "(", coef.VC[j], ")\\theta_{", fixed.names[j], "}", 
+					sep = "")
+			}else {			
+				fixed.VC <- paste(fixed.VC, coef.VC[j], "\\theta_{", fixed.names[j], "}", 
+					sep = "")
+            }
+			
             fixed.VC <- paste(fixed.VC, "+", sep = "")
         }
         
