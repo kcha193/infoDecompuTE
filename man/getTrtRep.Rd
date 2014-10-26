@@ -18,7 +18,7 @@ a vector of character containing the labels of the treatment terms in the model 
 }
 }
 \value{
-A matrix containing the replication numbers, where the rows correspond to each treatment combination and the columns correspond to the treatment factors, i.e. the replication number with respect to each treatment factor based on the treatment combination. 
+A list containing two objects. The first object is a matrix called \code{Rep} which contains the replication numbers, where the rows correspond to each treatment combination and the columns correspond to the treatment factors, i.e. the replication number with respect to each treatment factor based on the treatment combination. The second object called \code{Sca} which is a numeric vector for computing a coefficients of the fixed effect parameter in EMS. 
 }
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated Designs}. Second edition. Chapman
@@ -43,6 +43,6 @@ fT = terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed
 trtTerm = attr(fT,"term.labels")
 effectsMatrix = attr(fT,"factor") 
 		
-Rep = getTrtRep(design1, trtTerm)   
+getTrtRep(design1, trtTerm)   
 
 }

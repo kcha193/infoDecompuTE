@@ -1,4 +1,4 @@
-getEffFactor <- function(z, T, N, Rep) {
+getEffFactor <- function(z, T, N, Rep, trt.Sca) {
     
     if (!is.matrix(z)) 
         return(z)
@@ -25,7 +25,7 @@ getEffFactor <- function(z, T, N, Rep) {
 			va = va[which(va > 1e-07)]
 			
 			trt.coef = Re(eigen(T[[i]] %*% t(N) %*% PNTginvATNP[[1]] %*% N %*% 
-                T[[i]])$va)[1:length(va)]
+                T[[i]])$va)[1:length(va)]/trt.Sca[i]
 				
 			if(isTRUE(all.equal(as.numeric(outer(va, va, "/")),rep(1,length(va) * length(va))))){
 			
@@ -63,7 +63,7 @@ getEffFactor <- function(z, T, N, Rep) {
 				va = va[which(va > 1e-07)]
 			
 				trt.coef = Re(eigen(T[[j]] %*% t(N) %*% PNTginvATNP[[i]] %*% N %*% 
-					T[[j]])$va)[1:length(va)]
+					T[[j]])$va)[1:length(va)]/trt.Sca[j]
 					
 				if(isTRUE(all.equal(as.numeric(outer(va, va, "/")),rep(1,length(va) * length(va))))){
 				

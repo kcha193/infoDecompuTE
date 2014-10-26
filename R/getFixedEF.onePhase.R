@@ -45,7 +45,8 @@ getFixedEF.onePhase <- function(effFactors, trt.Coef, T, Rep, table.legend, deci
     trt <- trt[-1, ]
     
     trt <- noquote(ifelse(trt == "NaN", "", trt))
-    
+    trt <- noquote(ifelse(trt == "0", "", trt))
+	  
     if (table.legend) {
         Legend <- paste(paste(letters[1:(length(colnames(trt)))], colnames(trt), sep = " = "))
         colnames(trt) <- letters[1:(length(colnames(trt)))]

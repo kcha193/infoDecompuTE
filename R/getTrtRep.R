@@ -3,26 +3,26 @@ getTrtRep <- function(design.df, trtTerm) {
     
     if (length(trtTerm) == 1 && !any(grepl("[[:punct:]]", trtTerm))) {
         
-        return(as.matrix(table(design.df[, trtTerm])))
+        return(list(Rep = as.matrix(table(design.df[, trtTerm])), Sca = 1))
     } else if (any(grepl("[[:punct:]]", trtTerm))) {
         
         level <- t(sapply(strsplit(sort(levels(interaction(design.df[, unique(unlist(strsplit(trtTerm, 
-            "[[:punct:]]")))]))), "\\."), rbind))
+            "[[:punct:]]+")))]))), "\\."), rbind))
          	 	 
 		 		
 		 #level <- t(sapply(strsplit( sort(unique(apply(design.df[, unique(unlist(strsplit(trtTerm, #"[[:punct:]]")))],1,  function(x) paste(x, collapse = ".")))), "\\."), rbind))
   
-        colnames(level) <- unique(unlist(strsplit(trtTerm, "[[:punct:]]")))
+        colnames(level) <- unique(unlist(strsplit(trtTerm, "[[:punct:]]+")))
         
         inter <- trtTerm[grepl("[[:punct:]]", trtTerm)]
         
         for (i in 1:length(inter)) {
-            level <- cbind(level, apply(level[, unique(unlist(strsplit(inter[i], "[[:punct:]]")))], 
+            level <- cbind(level, apply(level[, unique(unlist(strsplit(inter[i], "[[:punct:]]+")))], 
                 1, function(x) paste(x, collapse = ".")))
             colnames(level)[ncol(level)] <- inter[i]
         }
         
-        trtTermList <- lapply(strsplit(trtTerm, "[[:punct:]]"), function(x) design.df[, 
+        trtTermList <- lapply(strsplit(trtTerm, "[[:punct:]]+"), function(x) design.df[, 
             x])
         names(trtTermList) <- trtTerm
         
@@ -67,8 +67,8 @@ getTrtRep <- function(design.df, trtTerm) {
             repList <- as.matrix(repMat * levelList)
         }
         
-        
-        return(repList)
+        		
+        return(list(Rep = repList, Sca = levelList))
         
     } else {
         
@@ -99,7 +99,8 @@ getTrtRep <- function(design.df, trtTerm) {
         
         repList <- repMat %*% diag(levelList)
         
-        return(repList)
+		
+        return(list(Rep = repList, Sca = levelList))
         
     }
 } 

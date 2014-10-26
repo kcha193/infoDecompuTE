@@ -179,9 +179,11 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
   	T <- makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
   	                  contr.vec = trt.contr)
   	N <- makeOverDesMat(design.df = design.df, effectNames = trtTerm)
-  	Rep <- getTrtRep(design.df, trtTerm)
-  	trt.Coef <- getTrtCoef(design.df, trtTerm)
-
+  	Replist <- getTrtRep(design.df, trtTerm)
+	Rep <- Replist$Rep
+  	trt.Sca <- Replist$Sca
+	trt.Coef <- getTrtCoef(design.df, trtTerm)
+  	
 	
 	#When there are treatment contrasts defined 
   	if (any(grepl("\\.", names(T)))) {
@@ -220,7 +222,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     
     
     effFactors <- lapply(Pb1, function(y) lapply(y, function(z) getEffFactor(z, T, N, 
-        Rep)))
+        Rep, trt.Sca)))
     effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]
     
     

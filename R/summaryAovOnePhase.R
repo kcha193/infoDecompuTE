@@ -50,9 +50,10 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
   	T <- makeContrMat(design.df = design.df, effectNames = trtTerm, effectsMatrix = effectsMatrix, 
   	                  contr.vec = trt.contr)
   	N <- makeOverDesMat(design.df = design.df, effectNames = trtTerm)
-  	Rep <- getTrtRep(design.df, trtTerm)
-  	trt.Coef <- getTrtCoef(design.df, trtTerm)
-	
+  	Replist <- getTrtRep(design.df, trtTerm)
+	Rep <- Replist$Rep
+  	trt.Sca <- Replist$Sca
+	trt.Coef <- getTrtCoef(design.df, trtTerm)
 	#browser()
 	
 	#################################################################################################
@@ -99,7 +100,8 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     
     ############################################################################################################## 
     
-    effFactors <- lapply(Pb, function(z) getEffFactor(z, T, N, Rep))
+	#browser()
+    effFactors <- lapply(Pb, function(z) getEffFactor(z, T, N, Rep, trt.Sca))
     effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]
     
 	#browser()

@@ -12,8 +12,9 @@ adjustMissingLevels = function(design.df, str.for){
     trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
 		
 	oldTerm = unlist(strsplit(trtTerm, "\\*"))
+	oldTerm = unlist(strsplit(oldTerm, "\\)"))
 	
-	oldTerm = gsub("\\)", "", unique(oldTerm[grep("\\(", oldTerm)]))
+	oldTerm = unique(oldTerm[grep("\\(", oldTerm)])
 	
 	for(i in oldTerm){
 	

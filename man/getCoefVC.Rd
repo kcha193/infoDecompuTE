@@ -79,6 +79,7 @@ Pb <- PNTginvATNP[sort(1:length(PNTginvATNP), decreasing=TRUE)]
 
 v.mat <- getVMat.onePhase(Z.Phase1 = Z, design.df = design.df, var.comp = NA)
     
-getCoefVC.onePhase(Pb = Pb, design.df = design1, v.mat = v.mat, response = NA, table.legend = FALSE, decimal = FALSE, digit = 2)
+getCoefVC.onePhase(Pb = Pb, design.df = design1, v.mat = v.mat, response = NA, 
+    table.legend = FALSE, decimal = FALSE, digit = 2)
 
 }

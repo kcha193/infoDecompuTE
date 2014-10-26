@@ -79,9 +79,15 @@ N <- makeOverDesMat(design1, trtTerm)
 		
 trt.Coef <- getTrtCoef(design1, trtTerm)
 
-Rep <- getTrtRep(design1, trtTerm)   
+
+Replist = getTrtRep(design1, trtTerm)   
  
-effFactors <- lapply(makeOrthProjectors(Z), function(z) getEffFactor(z, T, N, Rep))
+Rep <- Replist$Rep
+trt.Sca <- Replist$Sca
+    
+effFactors = lapply(makeOrthProjectors(Z), function(z) getEffFactor(z, T, N, Rep, trt.Sca))
+
+
 effFactors <- effFactors[sort(1:length(effFactors), decreasing=TRUE)]
 
 getFixedEF.onePhase(effFactors = effFactors, trt.Coef = trt.Coef,  T = T, Rep = Rep, 
