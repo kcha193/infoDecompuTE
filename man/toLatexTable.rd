@@ -63,8 +63,6 @@ v.mat <- getVMat.onePhase(Z.Phase1 = Z, design.df = design.df, var.comp = NA)
 ANOVA <- getCoefVC.onePhase(Pb = Pb, design.df = design1, v.mat = v.mat, response = NA, 
 	table.legend = FALSE, decimal = FALSE, digits = 2)
 		
-trt.Coef <- getTrtCoef(design1, trtTerm)
-
 Replist = getTrtRep(design1, trtTerm)   
  
 Rep <- Replist$Rep
@@ -75,7 +73,7 @@ effFactors = lapply(makeOrthProjectors(Z), function(z)
 
 effFactors <- effFactors[sort(1:length(effFactors), decreasing=TRUE)]
 
-EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Coef = trt.Coef,  T = T, Rep = Rep, 
+EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Sca = trt.Sca,  T = T, Rep = Rep, 
 	table.legend = FALSE, decimal = FALSE, digits = 2)
 
 toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = c("\\\tau"))

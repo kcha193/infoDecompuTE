@@ -188,12 +188,12 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
 	#When there are treatment contrasts defined 
   	if (any(grepl("\\.", names(T)))) {
   	  colnames(Rep) <- trtTerm
-  	  names(trt.Coef) <- trtTerm 
+  	  names(trt.Sca) <- trtTerm 
   	  Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
-  	  trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
+  	  trt.Sca <- trt.Sca[sapply(strsplit(names(T), "\\."), function(x) x[1])]
   	} else {
   	  colnames(Rep) <- trtTerm
-  	  names(trt.Coef) <- trtTerm      
+  	  names(trt.Sca) <- trtTerm      
 	}
 	 
     
@@ -226,7 +226,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]
     
     
-    EF <- getFixedEF.twoPhase(effFactors = effFactors, trt.Coef = trt.Coef, T = T, Rep = Rep, 
+    EF <- getFixedEF.twoPhase(effFactors = effFactors, trt.Sca = trt.Sca, T = T, Rep = Rep, 
         table.legend, decimal = decimal, digits = digits)
     
     if (latex) {

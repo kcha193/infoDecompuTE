@@ -22,7 +22,7 @@ adjustMissingLevels = function(design.df, str.for){
 		
 		oldTermNames = oldTermNames[oldTermNames!=""]
 		
-		bwTermName = drop.levels(interaction(design.df[,unlist(strsplit(oldTermNames[1], "\\."))]))
+		bwTermName = suppressWarnings(interaction(design.df[,unlist(strsplit(oldTermNames[1], "\\."))])[, drop = TRUE])
 		
 		oldTermNames = oldTermNames[2]
 		
@@ -43,7 +43,7 @@ adjustMissingLevels = function(design.df, str.for){
 		}
 
 		
-		newDes = drop.levels(newDes)
+		newDes = suppressWarnings(newDes[,drop=TRUE])
 		
 		colnames(newDes)[2] = termNames = paste("m", oldTermNames, sep = "") 
 
@@ -85,10 +85,10 @@ adjustMissingLevels = function(design.df, str.for){
 		
 			levelBased = which(table(newDes[,shortTerm]) == max(table(newDes[,shortTerm])))[1]
 
-			repeatedLevels = drop.levels(newDes[,names(termListLength)[2]][inter == levels(inter)[levelBased]])
+			repeatedLevels = suppressWarnings(newDes[,names(termListLength)[2]][inter == levels(inter)[levelBased]][,drop=TRUE])
 			
 			for(k in  levels(inter)[-levelBased]){
-				temp = drop.levels(newDes[,names(termListLength)[2]][inter == k])
+				temp = suppressWarnings(newDes[,names(termListLength)[2]][inter == k][,drop=TRUE])
 				levels(temp) = levels(repeatedLevels)
 				newDes[,names(termListLength)[2]][inter == k] = temp
 			}
@@ -102,7 +102,7 @@ adjustMissingLevels = function(design.df, str.for){
 			
 	}	
 	
-	design.df = drop.levels(design.df)
+	design.df = suppressWarnings(design.df[,drop=TRUE])
 	
 	return(list(design.df = design.df, str.for = str.for))
 	

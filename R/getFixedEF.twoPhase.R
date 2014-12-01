@@ -1,7 +1,7 @@
-getFixedEF.twoPhase <- function(effFactors, trt.Coef, T, Rep, table.legend, decimal, 
+getFixedEF.twoPhase <- function(effFactors, trt.Sca, T, Rep, table.legend, decimal, 
     digits) {
     
-    trt <- numeric(length(trt.Coef) + ncol(Rep))
+    trt <- numeric(length(trt.Sca) + ncol(Rep))
     names(trt) <- c(names(T), paste("eff", names(T), sep = "."))
     noindent <- FALSE
     # browser()

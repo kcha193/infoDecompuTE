@@ -69,13 +69,13 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
 	#When there are treatment contrasts defined 
   	if (any(grepl("\\.", names(T)))) {
   	  colnames(Rep) <- trtTerm
-  	  names(trt.Coef) <- trtTerm 
+  	  names(trt.Sca) <- trtTerm 
   	  Rep <- Rep[, sapply(strsplit(names(T), "\\."), function(x) x[1])]
-  	  trt.Coef <- trt.Coef[sapply(strsplit(names(T), "\\."), function(x) x[1])]
+  	  trt.Sca <- trt.Sca[sapply(strsplit(names(T), "\\."), function(x) x[1])]
   	} else {
   	 
   	  colnames(Rep) <- trtTerm
-  	  names(trt.Coef) <- trtTerm      
+  	  names(trt.Sca) <- trtTerm      
 	}
 	
     ######################################################################################### Start calculating the VCs 1-phase experiment
@@ -106,7 +106,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
     
 	#browser()
 	
-    EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Coef = trt.Coef, T = T, Rep = Rep, 
+    EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Sca = trt.Sca, T = T, Rep = Rep, 
         table.legend = table.legend, decimal = decimal, digits = digits)
     if (latex) {
         return(toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = fixed.names))
