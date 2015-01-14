@@ -1,5 +1,5 @@
 getFixedEF.onePhase <- function(effFactors, trt.Sca, T, Rep, table.legend, decimal, 
-    digits) {
+    digits, list.sep) {
     
     trt <- numeric(length(trt.Sca) + ncol(Rep))
     names(trt) <- c(names(T), paste("eff", names(T), sep = "."))
@@ -12,12 +12,12 @@ getFixedEF.onePhase <- function(effFactors, trt.Sca, T, Rep, table.legend, decim
             rownames(trt)[nrow(trt)] <- paste("Between", names(effFactors[i]), sep = " ")
         }
         
-        for (j in 1:length(effFactors[[i]])) {
-            if (is.null(effFactors[[i]][[j]])) 
+        for (j in 1:length(effFactors[[i]][[2]])) {
+            if (is.null(effFactors[[i]][[2]][[j]])) 
                 next
             
 					
-			effCoefList = effFactors[[i]][[j]]
+			effCoefList = effFactors[[i]][[2]][[j]]
 				
 			#browser()
 				
@@ -37,7 +37,7 @@ getFixedEF.onePhase <- function(effFactors, trt.Sca, T, Rep, table.legend, decim
             trt.temp <- c(char.trt, char.trt.eff)
             
             trt <- rbind(trt, trt.temp)
-            rownames(trt)[nrow(trt)] <- paste("  ", names(effFactors[[i]][j]), sep = " ")
+            rownames(trt)[nrow(trt)] <- paste("  ", names(effFactors[[i]][[2]][j]), sep = " ")
         }
         
     }
@@ -47,10 +47,35 @@ getFixedEF.onePhase <- function(effFactors, trt.Sca, T, Rep, table.legend, decim
     trt <- noquote(ifelse(trt == "NaN", "", trt))
     trt <- noquote(ifelse(trt == "0", "", trt))
 	  
+    if(list.sep){
+      trt.Fixed = trt[,-grep("^eff", colnames(trt))]
+      trt.EF = trt[,grep("^eff", colnames(trt))]
+      
+      if(length(grep("^eff", colnames(trt))) ==1){
+        trt.Fixed = noquote(matrix(trt.Fixed))
+        trt.EF = noquote(matrix(trt.EF))
+        
+        rownames(trt.Fixed) = rownames(trt.EF) = rownames(trt)
+        colnames(trt.Fixed) =  colnames(trt)[1]
+        colnames(trt.EF) = paste("eff.", colnames(trt)[1], sep = "")
+      }
+      trt = list(EF = trt.EF, Coef = trt.Fixed)
+    }
+    
+    
     if (table.legend) {
+      if(list.sep){
+        Legend.EF <- paste(paste(letters[1:(length(colnames(trt.EF)))], colnames(trt.EF), sep = " = "))
+        colnames(trt.EF) <- letters[1:(length(colnames(trt.EF)))]
+        Legend.Coef <- paste(paste(letters[1:(length(colnames(trt.Fixed)))], colnames(trt.Fixed), sep = " = "))
+        colnames(trt.Fixed) <- letters[1:(length(colnames(trt.Fixed)))]
+        
+        trt <- list(EF = trt.EF, Legend.EF = Legend.EF, Coef = trt.Fixed, Legend.Coef = Legend.Coef)
+      } else{
         Legend <- paste(paste(letters[1:(length(colnames(trt)))], colnames(trt), sep = " = "))
         colnames(trt) <- letters[1:(length(colnames(trt)))]
         trt <- list(trt = trt, Legend = Legend)
+      }
     }
     
     return(trt)

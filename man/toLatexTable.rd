@@ -44,7 +44,7 @@ Z <- makeBlkDesMat(design1, blkTerm)
 
 
 trt.str = "Trt"              
-fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
+fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  
 
 trtTerm <- attr(fT, "term.labels")
 effectsMatrix <- attr(fT, "factor")        
@@ -53,16 +53,6 @@ T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA)
 
 N <- makeOverDesMat(design1, trtTerm)
 
-PNTginvATNP <- lapply( makeOrthProjectors(Z), function(z) infoDecompMat(z, T, N))
-
-#Now construct variance matrices
-Pb <- PNTginvATNP[sort(1:length(PNTginvATNP), decreasing=TRUE)]
-
-v.mat <- getVMat.onePhase(Z.Phase1 = Z, design.df = design.df, var.comp = NA)
-    
-ANOVA <- getCoefVC.onePhase(Pb = Pb, design.df = design1, v.mat = v.mat, response = NA, 
-	table.legend = FALSE, decimal = FALSE, digits = 2)
-		
 Replist = getTrtRep(design1, trtTerm)   
  
 Rep <- Replist$Rep
@@ -73,8 +63,14 @@ effFactors = lapply(makeOrthProjectors(Z), function(z)
 
 effFactors <- effFactors[sort(1:length(effFactors), decreasing=TRUE)]
 
-EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Sca = trt.Sca,  T = T, Rep = Rep, 
-	table.legend = FALSE, decimal = FALSE, digits = 2)
+v.mat <- getVMat.onePhase(Z.Phase1 = Z, design.df = design.df, var.comp = NA)
+    
+ANOVA <- getCoefVC.onePhase(Pb = effFactors, design.df = design1, v.mat = v.mat, 
+    response = NA, table.legend = FALSE, decimal = FALSE, digits = 2)
+		
+EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Sca = trt.Sca,  T = T, 
+  Rep = Rep, 
+	table.legend = FALSE, decimal = FALSE, digits = 2, list.sep = FALSE)
 
 toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = c("\\\tau"))
 }

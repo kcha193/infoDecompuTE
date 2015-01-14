@@ -13,8 +13,8 @@ Constructs a matrix containing the coefficients of the coefficients of fixed eff
 Construct a matrix contain the coefficients of the fixed Components and the average efficiency factors of single-phase experiments.
 }
 \usage{
-getFixedEF.onePhase(effFactors, trt.Sca, T, Rep, table.legend, decimal, digits)
-getFixedEF.twoPhase(effFactors,  trt.Sca, T, Rep, table.legend, decimal, digits)
+getFixedEF.onePhase(effFactors, trt.Sca, T, Rep, table.legend, decimal, digits, list.sep)
+getFixedEF.twoPhase(effFactors,  trt.Sca, T, Rep, table.legend, decimal, digits, list.sep)
 
 }
 \arguments{
@@ -38,6 +38,9 @@ a logical allows users to display the coefficients as the decimals. Default is \
 }
  \item{digits}{
 a integer indicating the number of decimal places. Default is 2, resulting in 2 decimal places.  
+}
+ \item{list.sep}{
+a logical allows users to present the efficiency factors and coefficients of the fixed effects a list of seperate matrices.   
 }
 }
 \details{
@@ -88,6 +91,6 @@ effFactors = lapply(makeOrthProjectors(Z), function(z) getEffFactor(z, T, N, Rep
 effFactors <- effFactors[sort(1:length(effFactors), decreasing=TRUE)]
 
 getFixedEF.onePhase(effFactors = effFactors, trt.Sca = trt.Sca,  T = T, Rep = Rep, 
-			table.legend = FALSE, decimal = FALSE, digits = 2)
+			table.legend = FALSE, decimal = FALSE, digits = 2, list.sep = TRUE)
 
 }

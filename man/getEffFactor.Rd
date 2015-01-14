@@ -1,10 +1,10 @@
 \name{getEffFactor}
 \alias{getEffFactor}
 \title{
-Compute the Efficiency Factors of Treatment effects
+Construct the Matrix from Information Decomposition and Compute the Efficiency Factors of Treatment effects
 }
 \description{
-Compute the Efficiency Factors for every treatment effect within a single stratum.
+Perform the information decomposition for either the block or treatment effects within a single stratum and Compute the Efficiency Factors for every treatment effect within a single stratum.
 }
 \usage{
 getEffFactor(z, T, N, Rep, trt.Sca)
@@ -27,10 +27,10 @@ a numeric vector for computing a coefficients of the fixed effect parameter in E
 }
 }
 \value{
-A list of numeric vectors containing the efficiency factors of every treatment effect.
+A list of matrices andnumeric vectors containing the efficiency factors of every treatment effect.
 }
 \details{
-The main purpose of this function is to compute the canonical or average efficiency factors for each treatment effects in each stratum of ANOVA table. 
+The main purpose of this function is  to construct a list of resultant matrices associated with each source of variation after the information decomposition and to compute the canonical or average efficiency factors for each treatment effects in each stratum of ANOVA table. 
 
 The canonical efficiency factors are generated when the user input the treatment contrasts, otherwise the average efficiency factors, which is the harmonic mean of the canonical efficiency factors, are generated.  
 }

@@ -1,6 +1,6 @@
 summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp = NA, 
     blk.contr = NA, trt.contr = NA, table.legend = FALSE, response = NA, latex = FALSE, 
-    fixed.names = NA, decimal = FALSE, digits = 2) {
+    fixed.names = NA, decimal = FALSE, digits = 2, list.sep = TRUE) {
     
     design.df <- data.frame(lapply(design.df, factor))
     
@@ -182,7 +182,6 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
   	Replist <- getTrtRep(design.df, trtTerm)
 	Rep <- Replist$Rep
   	trt.Sca <- Replist$Sca
-	trt.Coef <- getTrtCoef(design.df, trtTerm)
   	
 	
 	#When there are treatment contrasts defined 
@@ -203,11 +202,9 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     # variance components.', '') write('6. Pre- and post-multiply NTginvATN by block
     # projection matrices.', '')
     
-    
-    PNTginvATNP <- lapply(Pb1, function(y) lapply(y, function(z) infoDecompMat(z, T, 
-        N)))
-    
-    PNTginvATNP <- PNTginvATNP[sort(1:length(PNTginvATNP), decreasing = TRUE)]
+	effFactors <- lapply(Pb1, function(y) lapply(y, function(z) getEffFactor(z, T, N, 
+	                                                                         Rep, trt.Sca)))
+	effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]   
     
     
     v.mat <- getVMat.twoPhase(Z.Phase1 = Z1, Z.Phase2 = Z2, design.df = design.df, var.comp = var.comp)
@@ -217,7 +214,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     }
     
     
-    ANOVA <- getCoefVC.twoPhase(Pb = PNTginvATNP, design.df = design.df, v.mat = v.mat, 
+    ANOVA <- getCoefVC.twoPhase(Pb = effFactors, design.df = design.df, v.mat = v.mat, 
         response, table.legend, decimal = decimal, digits = digits)
     
     
@@ -226,13 +223,14 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     effFactors <- effFactors[sort(1:length(effFactors), decreasing = TRUE)]
     
     
-    EF <- getFixedEF.twoPhase(effFactors = effFactors, trt.Sca = trt.Sca, T = T, Rep = Rep, 
-        table.legend, decimal = decimal, digits = digits)
-    
     if (latex) {
+        EF <- getFixedEF.twoPhase(effFactors = effFactors, trt.Sca = trt.Sca, T = T, Rep = Rep, 
+                                table.legend, decimal = decimal, digits = digits, list.sep = FALSE)
         return(toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = fixed.names))
     } else {
-        return(list(ANOVA = ANOVA, EF = EF))
+      EF <- getFixedEF.twoPhase(effFactors = effFactors, trt.Sca = trt.Sca, T = T, Rep = Rep, 
+                                table.legend, decimal = decimal, digits = digits, list.sep = list.sep)
+        return(list(ANOVA = ANOVA, Fixed = EF))
     }
     
     

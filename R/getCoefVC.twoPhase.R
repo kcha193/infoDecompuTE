@@ -5,7 +5,7 @@ getCoefVC.twoPhase <- function(Pb, design.df, v.mat, response, table.legend, dec
         response <- rep(NA, nrow(design.df))
     }
     
-    MS <- lapply(Pb, function(x) lapply(x, function(q) lapply(q, function(w) t(response) %*% 
+    MS <- lapply(Pb, function(x) lapply(x, function(q) lapply(q[[1]], function(w) t(response) %*% 
         w %*% response)))
     
     V <- v.mat
@@ -27,12 +27,12 @@ getCoefVC.twoPhase <- function(Pb, design.df, v.mat, response, table.legend, dec
         }
         
         for (k in 1:(length(Pb[[i]]))) {
-            tmp <- matrix(0, nrow = length(names(Pb[[i]][[k]])), ncol = (length(V) + 
-                1), dimnames = list(names(Pb[[i]][[k]]), c(names(V), "MS")))
+            tmp <- matrix(0, nrow = length(names(Pb[[i]][[k]][[1]])), ncol = (length(V) + 
+                1), dimnames = list(names(Pb[[i]][[k]][[1]]), c(names(V), "MS")))
             
-            for (j in 1:((length(names(Pb[[i]][[k]]))))) {
+            for (j in 1:((length(names(Pb[[i]][[k]][[1]]))))) {
                 for (z in 1:length(V)) {
-                  tmp[j, z] <- tr(Pb[[i]][[k]][[j]] %*% V[[z]])
+                  tmp[j, z] <- tr(Pb[[i]][[k]][[1]][[j]] %*% V[[z]])
                 }
                 tmp[j, (length(V) + 1)] <- as.numeric(MS[[i]][[k]][[j]])
             }

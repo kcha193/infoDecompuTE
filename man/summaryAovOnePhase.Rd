@@ -10,7 +10,7 @@ Computes the coefficients of the variance components for the expected mean squar
 summaryAovOnePhase(design.df, blk.str, trt.str, var.comp = NA,  
                    trt.contr = NA, table.legend = FALSE, 
                    response = NA, latex = FALSE, fixed.names = NA,
-                   decimal = FALSE, digits = 2)
+                   decimal = FALSE, digits = 2, list.sep = TRUE)
 }
 \arguments{
   \item{design.df}{
@@ -46,6 +46,9 @@ a logical allows users to display the coefficients as the decimals. Default is \
 }
  \item{digits}{
 a integer indicating the number of decimal places. Default is 2, resulting in 2 decimal places.  
+}
+ \item{list.sep}{
+a logical allows users to present the efficiency factors and coefficients of the fixed effects a list of seperate matrices. Default is \code{TRUE}.  
 }
 }
 \value{

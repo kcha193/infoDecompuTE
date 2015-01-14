@@ -4,7 +4,7 @@ getCoefVC.onePhase <- function(Pb, design.df, v.mat, response, table.legend, dec
     if (all(is.na(response))) {
         response <- rep(NA, nrow(design.df))
     }
-    MS <- lapply(Pb, function(q) lapply(q, function(w) t(response) %*% w %*% response))
+    MS <- lapply(Pb, function(q) lapply(q[[1]], function(w) t(response) %*% w %*% response))
     #MS <- lapply(Pb, function(q) apply(q, 3, function(w) t(response) %*% w %*% response))
  
     
@@ -16,11 +16,11 @@ getCoefVC.onePhase <- function(Pb, design.df, v.mat, response, table.legend, dec
     ############################################################################################################## 
     
     for (i in 1:length(Pb)) {
-        tmp <- matrix(0, nrow = length(names(Pb[[i]])), ncol = length(V) + 1, dimnames = list(names(Pb[[i]]), 
+        tmp <- matrix(0, nrow = length(names(Pb[[i]][[1]])), ncol = length(V) + 1, dimnames = list(names(Pb[[i]][[1]]), 
             c(names(V), "MS")))
-        for (j in 1:(length(names(Pb[[i]])))) {
+        for (j in 1:(length(names(Pb[[i]][[1]])))) {
             for (z in 1:(length(V))) {
-                tmp[j, z] <- tr(Pb[[i]][[j]] %*% V[[z]])
+                tmp[j, z] <- tr(Pb[[i]][[1]][[j]] %*% V[[z]])
             }
             tmp[j, (length(V) + 1)] <- as.numeric(MS[[i]][[j]])
         }
@@ -52,8 +52,6 @@ getCoefVC.onePhase <- function(Pb, design.df, v.mat, response, table.legend, dec
             }
             
             rownames(tmp) <- paste("  ", rownames(tmp), sep = " ")
-            
-            
             
             if (decimal) {
                 tmp <- t(apply(tmp, 1, function(x) c(round(c(x[1], x[-length(x)]/x[1]), 

@@ -72,10 +72,16 @@ T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA)
 
 N =  makeOverDesMat(design1, trtTerm)
 
-PNTginvATNP <- lapply( makeOrthProjectors(Z), function(z) infoDecompMat(z, T, N))
+Replist = getTrtRep(design1, trtTerm)   
+ 
+Rep <- Replist$Rep
+trt.Sca <- Replist$Sca
+    
+effFactors = lapply(makeOrthProjectors(Z), function(z) 
+      getEffFactor(z, T, N, Rep, trt.Sca))
 
 #Now construct variance matrices
-Pb <- PNTginvATNP[sort(1:length(PNTginvATNP), decreasing=TRUE)]
+Pb <- effFactors[sort(1:length(effFactors), decreasing=TRUE)]
 
 v.mat <- getVMat.onePhase(Z.Phase1 = Z, design.df = design.df, var.comp = NA)
     
