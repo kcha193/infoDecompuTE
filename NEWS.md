@@ -1,3 +1,10 @@
+CHANGES IN infoDecompuTE VERSION 0.6
+
+NEW FEATURES
+  
+  o To check with the latest version of R.
+
+
 CHANGES IN infoDecompuTE VERSION 0.5.6
 
 NEW FEATURES

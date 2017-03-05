@@ -1,5 +1,4 @@
 Package: infoDecompuTE
-Type: Package
 Title: Information Decomposition of Two-Phase Experiments
 Version: 0.6.0
 Date: 2016-03-05
@@ -14,6 +13,7 @@ Depends: R (>= 3.0.0)
 Imports:
     MASS
 License: GPL (>= 3)
+Encoding: UTF-8
 LazyLoad: yes
 URL: https://github.com/kcha193/infoDecompuTE
 BugReports: https://github.com/kcha193/infoDecompuTE/issues

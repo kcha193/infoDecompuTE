@@ -1,4 +1,6 @@
 import(MASS)
+importFrom(stats,terms)
+importFrom(stats,as.formula)
 export(  getCoefVC.onePhase,
 		getCoefVC.twoPhase,	
 		getEffFactor,	
