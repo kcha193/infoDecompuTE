@@ -2,7 +2,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     blk.contr = NA, trt.contr = NA, table.legend = FALSE, response = NA, latex = FALSE, 
     fixed.names = NA, decimal = FALSE, digits = 2, list.sep = TRUE) {
     
-    design.df <- data.frame(lapply(design.df, factor))
+  design.df <- data.frame(sapply(design.df, function(x) gsub("[[:punct:]]", "", as.character(x))))
     
 	#browser()
 	newTerms = adjustMissingLevels(design.df, trt.str)

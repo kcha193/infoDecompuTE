@@ -3,7 +3,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
                                response = NA, latex = FALSE, fixed.names = NA, decimal = FALSE, digits = 2, 
                                list.sep = TRUE) {
   
-  design.df <- data.frame(lapply(design.df, factor))
+  design.df <- data.frame(sapply(design.df, function(x) gsub("[[:punct:]]", "", as.character(x))))
   
   newTerms = adjustMissingLevels(design.df, trt.str)
   # browser()
