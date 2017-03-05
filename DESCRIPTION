@@ -1,11 +1,19 @@
 Package: infoDecompuTE
 Type: Package
-Title: Information Decomposition of Two-phase Experiments
-Version: 0.5.6
-Date: 2016-7-23
-Author: Kevin Chang and Katya Ruggiero
-Maintainer: Kevin Chang <kcha193@aucklanduni.ac.nz> 
-Description: InfoDecompuTE is capable of generating the structure of the analysis of variance (ANOVA) table of the two-phase experiments. By inputting the design and the relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, infoDecompuTE can generate the structure of the ANOVA table with the coefficients of the variance components for the expected mean squares. This package can also study the balanced incomplete block design and provides the efficiency factors of the fixed effects.
-Depends: R (>= 2.10.0), MASS
+Title: Information Decomposition of Two-Phase Experiments
+Version: 0.6.0
+Date: 2016-03-05
+Authors@R: c(person("Kevin", "Chang", email = "k.chang@auckland.ac.nz", role = c("aut", "cre")))
+Description: This package 'InfoDecompuTE' is capable of generating the structure of the analysis of variance (ANOVA) table
+              of the two-phase experiments. By inputting the design and the relationships of the random and 
+              fixed factors using the Wilkinson-Rogers' syntax, 'infoDecompuTE' can generate the structure of 
+              the ANOVA table with the coefficients of the variance components for the expected mean squares.
+              This package can also study the balanced incomplete block design and provides the efficiency
+              factors of the fixed effects.
+Depends: R (>= 3.0.0)
+Imports:
+    MASS
 License: GPL (>= 3)
 LazyLoad: yes
+URL: https://github.com/kcha193/infoDecompuTE
+BugReports: https://github.com/kcha193/infoDecompuTE/issues

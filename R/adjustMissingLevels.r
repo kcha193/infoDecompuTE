@@ -4,7 +4,7 @@ adjustMissingLevels = function(design.df, str.for){
 	if(!grepl("(:)", str.for) && !grepl("(/)", str.for)) 
 		return(list(design.df = design.df, str.for = str.for))
 	#browser()
-	fT = terms(as.formula(paste("~", str.for, sep = "")), keep.order = TRUE)
+	fT = stats::terms(stats::as.formula(paste("~", str.for, sep = "")), keep.order = TRUE)
 
 	trtTerm <- attr(fT, "term.labels")
     effectsMatrix <- attr(fT, "factor")

@@ -140,12 +140,12 @@ trt.str = "Tag + Trt", response = rnorm(16))$ANOVA
 
 #Generate Latex scripts
 summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
-trt.str = "Tag + Trt", latex = TRUE, fixed.names = c("\\\gamma", "\\\tau"))  
+trt.str = "Tag + Trt", latex = TRUE, fixed.names = c("\\\\gamma", "\\\\tau"))  
 
 #Generate Latex scripts with MS
 set.seed(527)
 summaryAovTwoPhase(design2, blk.str1 = "Ani/Sam", blk.str2 = "Run", 
 trt.str = "Tag + Trt", response = rnorm(16), latex = TRUE, 
-fixed.names = c("\\\gamma", "\\\tau") )                               
+fixed.names = c("\\\\gamma", "\\\\tau") )                               
 }
 \keyword{design }

@@ -3,7 +3,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
                                response = NA, latex = FALSE, fixed.names = NA, decimal = FALSE, digits = 2, 
                                list.sep = TRUE) {
   
-  design.df <- data.frame(sapply(design.df, function(x) gsub("[[:punct:]]", "", as.character(x))))
+  design.df <- data.frame(lapply(design.df, factor))
   
   newTerms = adjustMissingLevels(design.df, trt.str)
   # browser()
@@ -11,11 +11,11 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
   trt.str = newTerms$str.for
   ######################################################################################### Main methods starts here-> Extract the fixed and random terms
   
-  rT <- terms(as.formula(paste("~", blk.str, sep = "")), keep.order = TRUE)  #random terms
+  rT <- stats::terms(stats::as.formula(paste("~", blk.str, sep = "")), keep.order = TRUE)  #random terms
   
   rT.terms <- attr(rT, "term.labels")
   
-  fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
+  fT <- stats::terms(stats::as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
   
   ######################################################################################### Preparing the block structures browser()
   Z <- makeBlkDesMat(design.df, rev(rT.terms))

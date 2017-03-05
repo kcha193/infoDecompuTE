@@ -72,5 +72,5 @@ EF <- getFixedEF.onePhase(effFactors = effFactors, trt.Sca = trt.Sca,  T = T,
   Rep = Rep, 
 	table.legend = FALSE, decimal = FALSE, digits = 2, list.sep = FALSE)
 
-toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = c("\\\tau"))
+toLatexTable(ANOVA = ANOVA, EF = EF, fixed.names = c("\\\\tau"))
 }

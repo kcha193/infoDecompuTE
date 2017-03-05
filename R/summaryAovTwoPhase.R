@@ -2,8 +2,8 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
     blk.contr = NA, trt.contr = NA, table.legend = FALSE, response = NA, latex = FALSE, 
     fixed.names = NA, decimal = FALSE, digits = 2, list.sep = TRUE) {
     
-    design.df <- data.frame(sapply(design.df, function(x) gsub("[[:punct:]]", "", as.character(x))))
-
+    design.df <- data.frame(lapply(design.df, factor))
+    
 	#browser()
 	newTerms = adjustMissingLevels(design.df, trt.str)
 		
@@ -17,9 +17,9 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
 	
     # Extract the fixed and random terms
     
-    rT1 <- terms(as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
-    rT2 <- terms(as.formula(paste("~", blk.str2, sep = "")), keep.order = TRUE)  #random terms phase 2
-    fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
+    rT1 <- stats::terms(stats::as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
+    rT2 <- stats::terms(stats::as.formula(paste("~", blk.str2, sep = "")), keep.order = TRUE)  #random terms phase 2
+    fT <- stats::terms(stats::as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
     
     
     # Preparing the block structures write('1.  Preparing the block structure.', '')
@@ -84,7 +84,7 @@ summaryAovTwoPhase <- function(design.df, blk.str1, blk.str2, trt.str, var.comp 
         }
     }
     
-	rT1 <- terms(as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
+	rT1 <- stats::terms(stats::as.formula(paste("~", blk.str1, sep = "")), keep.order = TRUE)  #random terms phase 1
 	blkTerm1 <- attr(rT1, "term.labels")
      
 	
