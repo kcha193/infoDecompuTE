@@ -1,10 +1,8 @@
 infoDecompuTE
 =============
-[![Build Status](https://travis-ci.org/kcha193/infoDecompuTE.png?branch=master)](https://travis-ci.org/kcha193/infoDecompuTE)  
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/normalr)](https://cran.r-project.org/package=infoDecompuTE)
-[![Build Status](https://travis-ci.org/kcha193/normalr.png?branch=master)](https://travis-ci.org/kcha193/normalr)
-[![Coverage Status](https://img.shields.io/codecov/c/github/kcha193/normalr/master.svg)](https://codecov.io/github/kcha193/infoDecompuTE?branch=master)
-[![Rdoc](http://www.rdocumentation.org/badges/version/normalr)](http://www.rdocumentation.org/packages/infoDecompuTE)
+[![Build Status](https://travis-ci.org/kcha193/infoDecompuTE.png?branch=master)](https://travis-ci.org/kcha193/infoDecompuTE) [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/infoDecompuTE)](https://cran.r-project.org/package=infoDecompuTE)
+[![Coverage Status](https://img.shields.io/codecov/c/github/kcha193/infoDecompuTE/master.svg)](https://codecov.io/github/kcha193/infoDecompuTE?branch=master)
+[![Rdoc](http://www.rdocumentation.org/badges/version/infoDecompuTE)](http://www.rdocumentation.org/packages/infoDecompuTE)
 
 InfoDecompuTE is capable of generating the structure of the analysis of variance (ANOVA) table of the two-phase experiments. By inputting the design and the relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, infoDecompuTE can generate the structure of the ANOVA table with the coefficients of the variance components for the expected mean squares. This package can also study the balanced incomplete block design and provides the efficiency factors of the fixed effects.
 
