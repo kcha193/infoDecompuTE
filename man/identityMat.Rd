@@ -21,9 +21,6 @@ Construct an identity matrix.
 identityMat(10)
 
 }
-\author{
-Kevin
-}
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated
 Designs}. Second edition. Chapman & Hall.
@@ -31,4 +28,6 @@ Designs}. Second edition. Chapman & Hall.
 \seealso{
 \code{\link{diag}}
 }
-
+\author{
+Kevin
+}

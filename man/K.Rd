@@ -21,11 +21,10 @@ Construct a n-by-n averaging matrix.
 K(10)
 
 }
-\author{
-Kevin Chang
-}
 \references{
 John J, Williams E (1987). \emph{Cyclic and computer generated
 Designs}. Second edition. Chapman & Hall.
 }
-
+\author{
+Kevin Chang
+}

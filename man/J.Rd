@@ -25,4 +25,3 @@ J(10)
 \author{
 Kevin Chang
 }
-

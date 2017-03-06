@@ -24,4 +24,3 @@ projMat(m)
 \author{
 Kevin Chang
 }
-

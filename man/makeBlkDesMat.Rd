@@ -40,10 +40,9 @@ Z = makeBlkDesMat(design1, blkTerm)
 
 
 }
-\author{
-Kevin Chang
-}
 \seealso{
 \code{\link{terms}}
 }
-
+\author{
+Kevin Chang
+}

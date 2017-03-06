@@ -81,7 +81,7 @@ design1 <- local({
 summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt") 
 
 summaryAovOnePhase(design1, blk.str = "Ani", trt.str = "Trt", 
-latex = TRUE, fixed.names = c("\\\tau"))
+latex = TRUE, fixed.names = c("\\\\tau"))
 
 }
 
