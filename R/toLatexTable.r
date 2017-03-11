@@ -196,5 +196,5 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
     output <- c(output, "\\bottomrule \n \\end{tabular} \n \\label{tab:} \n\\end{table} \n")
     output <- c(output, "")
     
-    return(output)
+    return( paste0(output, collapse = ""))
 } 
