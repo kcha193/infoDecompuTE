@@ -14,7 +14,7 @@ infoDecompuTE is available from CRAN. Install it with:
 install.packages("infoDecompuTE")
 ```
 
-You can install infoDecompuTE from github with:
+You can also install infoDecompuTE from github with:
 
 ``` r
 # install.packages("devtools")
@@ -22,7 +22,7 @@ devtools::install_github("kcha193/infoDecompuTE")
 ```
 ## Examples
 
-The following example uses infoDecompuTE to construct ANOVA table of single-phase and two-phase experiments
+The following examples uses infoDecompuTE to construct ANOVA table of single-phase and two-phase experiments
 
 ```R
 design1 <- local({ 
@@ -57,4 +57,4 @@ trt.str = "Tag + Trt")
 
 ## Shiny apps
 
-The shiny app is also available from [shinyapps.io](https://kcha193.shinyapps.io/infoDecompute_shiny/).
+The shiny app is also available from [shinyapps.io](https://kcha193.shinyapps.io/infoDecompuTE_Shiny/).
