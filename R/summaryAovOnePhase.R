@@ -48,6 +48,7 @@ summaryAovOnePhase <- function(design.df, blk.str, trt.str, var.comp = NA, trt.c
   
   T <- makeContrMat(design.df = design.df, effectNames = trtTerm, 
                     effectsMatrix = effectsMatrix, contr.vec = trt.contr)
+
   N <- makeOverDesMat(design.df = design.df, effectNames = trtTerm)
   Replist <- getTrtRep(design.df, trtTerm)
   Rep <- Replist$Rep

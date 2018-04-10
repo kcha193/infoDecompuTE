@@ -54,7 +54,7 @@ trt.str = "Trt"
 fT <- terms(as.formula(paste("~", trt.str, sep = "")), keep.order = TRUE)  #fixed terms
 
 trtTerm <- attr(fT, "term.labels")
-effectsMatrix <- attr(fT, "factor")        
+effectsMatrix <- attr(fT, "factors")        
 
 T <- makeContrMat(design1, trtTerm, effectsMatrix, contr.vec = NA)
 

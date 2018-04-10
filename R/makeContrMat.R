@@ -2,7 +2,8 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
     # Square contrast matrix with the specific contrast (trtContr)
     indMatrix1 <- function(x, n, trtContr) {
         if (x == 1) 
-            X <- trtContr else if (x == 2) 
+            X <- trtContr 
+        else if (x == 2) 
             X <- identityMat(n) else X <- K(n)
         return(X)
     }
@@ -10,7 +11,8 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
     # Square contrast matrix without defining the specific contrast
     indMatrix <- function(x, n) {
         if (x == 1) 
-            X <- J(n) else if (x == 2) 
+            X <- J(n) 
+        else if (x == 2) 
             X <- identityMat(n) else X <- K(n)
         return(X)
     }
@@ -113,7 +115,8 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
 		
 		if(any(sapply(effectList, class) == "list")){
 	
-			 totalLength = totalLength + sum(sapply(effectList[which(sapply(effectList, class) == "list")], length))
+			 totalLength = totalLength + 
+			   sum(sapply(effectList[which(sapply(effectList, class) == "list")], length))
 		}
         
         newEffectsMatrix <- matrix(0, ncol = totalLength, nrow = nrow(effectsMatrix))
@@ -146,11 +149,12 @@ makeContrMat <- function(design.df, effectNames, effectsMatrix, contr.vec) {
         }
         
         colnames(newEffectsMatrix) <- names(X)
-        #browser()
-		
+
+        
         for (i in 1:nrow(newEffectsMatrix)) {
             if (is.list(contr.vec[[rownames(effectsMatrix)[i]]])) {
-                trtContr <- lapply(contr.vec[[rownames(effectsMatrix)[i]]], function(x) transContrToT(design.df[, 
+                trtContr <- lapply(contr.vec[[rownames(effectsMatrix)[i]]], 
+                                   function(x) transContrToT(design.df[, 
                   rownames(effectsMatrix)[i]], x))
                 
                 matList <- vector(mode = "list", length = totalLength)

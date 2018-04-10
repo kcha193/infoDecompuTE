@@ -1,21 +1,22 @@
 
 adjustMissingLevels = function(design.df, str.for){
 	
-	if(!grepl("(:)", str.for) && !grepl("(/)", str.for)) 
-		return(list(design.df = design.df, str.for = str.for))
-	#browser()
-	fT = stats::terms(stats::as.formula(paste("~", str.for, sep = "")), keep.order = TRUE)
-
-	trtTerm <- attr(fT, "term.labels")
-    effectsMatrix <- attr(fT, "factor")
-    
-    trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
-		
-	oldTerm = unlist(strsplit(trtTerm, "\\*"))
-	oldTerm = unlist(strsplit(oldTerm, "\\)"))
-	
-	oldTerm = unique(oldTerm[grep("\\(", oldTerm)])
-	
+  if(!grepl("(:)", str.for) &&
+     !grepl("(/)", str.for))
+    return(list(design.df = design.df, str.for = str.for))
+  #browser()
+  fT = stats::terms(stats::as.formula(paste("~", str.for, sep = "")), keep.order = TRUE)
+  
+  trtTerm <- attr(fT, "term.labels")
+  effectsMatrix <- attr(fT, "factor")
+  
+  trtTerm = adjustEffectNames(effectsMatrix, trtTerm)
+  
+  oldTerm = unlist(strsplit(trtTerm, "\\*"))
+  oldTerm = unlist(strsplit(oldTerm, "\\)"))
+  
+  oldTerm = unique(oldTerm[grep("\\(", oldTerm)])
+  
 	for(i in oldTerm){
 	
 		oldTermNames = unique(unlist(strsplit(i, "\\(")))

@@ -59,7 +59,7 @@ getFixedEF.onePhase <- function(effFactors, trt.Sca, T, Rep, table.legend, decim
         colnames(trt.Fixed) =  colnames(trt)[1]
         colnames(trt.EF) = paste("eff.", colnames(trt)[1], sep = "")
       }
-      trt = list(EF = trt.EF, Coef = trt.Fixed)
+      trt = list(Coef = trt.Fixed, EF = trt.EF)
     }
     
     

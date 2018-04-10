@@ -41,8 +41,11 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
     
     
     # check for interaction effects
-    random.names <- sapply(strsplit(gsub("([[:punct:]])", "\\.\\1\\.", random.ColNames[startColNames:ColNamesLen]), 
+    random.names <- sapply(strsplit(gsub("([[:punct:]])", "\\.\\1\\.",
+                                         random.ColNames[startColNames:ColNamesLen]), 
         "\\."), function(x) paste(substr(x, 1, 1), collapse = ""))
+    
+    random.names <- tolower(random.names)
     
     random.names <- gsub("\\*", "", random.names)
     
@@ -196,5 +199,5 @@ toLatexTable <- function(ANOVA, EF, fixed.names) {
     output <- c(output, "\\bottomrule \n \\end{tabular} \n \\label{tab:} \n\\end{table} \n")
     output <- c(output, "")
     
-    return( paste0(output, collapse = ""))
+    return( cat(paste0(output, collapse = "")))
 } 

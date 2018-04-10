@@ -2,7 +2,8 @@ Package: infoDecompuTE
 Title: Information Decomposition of Two-Phase Experiments
 Version: 0.6.0
 Date: 2017-03-05
-Authors@R: c(person("Kevin", "Chang", email = "k.chang@auckland.ac.nz", role = c("aut", "cre")))
+Authors@R: c(person("Kevin", "Chang", email = "k.chang@auckland.ac.nz", role = c("aut", "cre")), 
+            person("Katya", "Ruggiero", email = "k.ruggiero@auckland.ac.nz", role = c("aut")))
 Description: The main purpose of this package is to generate the structure of the analysis of variance 
             (ANOVA) table of the two-phase experiments. The user only need to input the design and the 
               relationships of the random and fixed factors using the Wilkinson-Rogers' syntax, 
