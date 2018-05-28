@@ -2,7 +2,7 @@
 % Please edit documentation in R/getVMat.onePhase.R
 \name{getVMat.onePhase}
 \alias{getVMat.onePhase}
-\title{Get the Variance Matrices for Sngle-Phase experiment}
+\title{Get the Variance Matrices for Single-Phase experiment}
 \usage{
 getVMat.onePhase(Z.Phase1, design.df, var.comp = NA)
 }

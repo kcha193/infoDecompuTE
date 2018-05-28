@@ -1,6 +1,6 @@
 ##' Get the Treatment Coefficients
 ##' 
-##' Compute the overll coefficients every treatment term including the
+##' Compute the overall coefficients every treatment term including the
 ##' interaction.
 ##' 
 ##' 

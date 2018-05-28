@@ -1,4 +1,4 @@
-##' Get the Variance Matrices for Sngle-Phase experiment
+##' Get the Variance Matrices for Single-Phase experiment
 ##' 
 ##' Construct the matrix for each variance components for the single-phase or
 ##' two-phase experiment.

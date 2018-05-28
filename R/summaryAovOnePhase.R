@@ -42,7 +42,7 @@
 ##' @param digits a integer indicating the number of decimal places. Default is
 ##' 2, resulting in 2 decimal places.
 ##' @param list.sep a logical allows users to present the efficiency factors
-##' and coefficients of the fixed effects a list of seperate matrices. Default
+##' and coefficients of the fixed effects a list of separate matrices. Default
 ##' is \code{TRUE}.
 ##' @return The values returned depends on the value of the \code{table.legend}
 ##' argument. If \code{table.legend = FALSE}, this function will return a list

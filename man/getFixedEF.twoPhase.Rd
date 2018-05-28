@@ -32,7 +32,7 @@ decimals. Default is \code{FALSE}, resulting in the use of
 2, resulting in 2 decimal places.}
 
 \item{list.sep}{a logical allows users to present the efficiency factors
-and coefficients of the fixed effects a list of seperate matrices.}
+and coefficients of the fixed effects a list of separate matrices.}
 }
 \value{
 A matrix.

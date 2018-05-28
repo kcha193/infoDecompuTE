@@ -37,7 +37,7 @@
 ##' @param digits a integer indicating the number of decimal places. Default is
 ##' 2, resulting in 2 decimal places.
 ##' @param list.sep a logical allows users to present the efficiency factors
-##' and coefficients of the fixed effects a list of seperate matrices.
+##' and coefficients of the fixed effects a list of separate matrices.
 ##' @return A matrix.
 ##' @author Kevin Chang
 ##' @export 

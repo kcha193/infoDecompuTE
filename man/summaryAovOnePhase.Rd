@@ -55,7 +55,7 @@ decimals. Default is \code{FALSE}, resulting in the use of function
 2, resulting in 2 decimal places.}
 
 \item{list.sep}{a logical allows users to present the efficiency factors
-and coefficients of the fixed effects a list of seperate matrices. Default
+and coefficients of the fixed effects a list of separate matrices. Default
 is \code{TRUE}.}
 }
 \value{
