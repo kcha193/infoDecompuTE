@@ -1,7 +1,7 @@
 Package: infoDecompuTE
 Title: Information Decomposition of Two-Phase Experiments
-Version: 0.6.0
-Date: 2017-03-05
+Version: 0.6.1
+Date: 2018-05-28
 Authors@R: c(person("Kevin", "Chang", email = "k.chang@auckland.ac.nz", role = c("aut", "cre")), 
             person("Katya", "Ruggiero", email = "k.ruggiero@auckland.ac.nz", role = c("aut")))
 Description: The main purpose of this package is to generate the structure of the analysis of variance 

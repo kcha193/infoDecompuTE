@@ -10,8 +10,8 @@ J(n)
 \item{n}{a numeric describes the dimension of the square matrix.}
 }
 \value{
-This function return a square matrix which the identity matrix minus
-the averging matrix.
+This function return a square matrix which the identity matrix
+minus the averging matrix.
 }
 \description{
 Construct a square matrix which the identity matrix minus the averging
@@ -19,7 +19,9 @@ matrix.
 }
 \examples{
 
+
 J(10)
+
 
 }
 \author{

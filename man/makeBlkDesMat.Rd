@@ -23,6 +23,7 @@ blocks.
 }
 \examples{
 
+
 design1 <- local({ 
   Ani = as.factor(LETTERS[c(1,2,3,4,
                             5,6,7,8)])
@@ -37,6 +38,7 @@ rT = terms(as.formula(paste("~", blk.str, sep = "")), keep.order = TRUE)
 
 blkTerm = attr(rT,"term.labels")
 Z = makeBlkDesMat(design1, blkTerm)
+
 
 
 }
