@@ -1,7 +1,7 @@
 
 CHANGES IN infoDecompuTE VERSION 0.6.2
 
-NEW FEATURES
+BUG FIXES
   
   o To check with the latest version of R by adding stringsAsFactors = TRUE to the relevant calls to data.frame() .
   
